@@ -37,8 +37,14 @@ my $concat = Gnome2::Canvas::PathDef -> concat($def_one, $def_two);
 isa_ok($concat, "Gnome2::Canvas::PathDef");
 
 isa_ok(($concat -> split())[0], "Gnome2::Canvas::PathDef");
-isa_ok(($concat -> open_parts())[0], "Gnome2::Canvas::PathDef");
-isa_ok(($concat -> closed_parts())[0], "Gnome2::Canvas::PathDef");
+
+SKIP: {
+  skip("open_parts and closed_parts seem to be broken in 2.0", 2)
+    unless (Gnome2::Canvas -> CHECK_VERSION(2, 2, 0));
+
+  isa_ok(($concat -> open_parts())[0], "Gnome2::Canvas::PathDef");
+  isa_ok(($concat -> closed_parts())[0], "Gnome2::Canvas::PathDef");
+}
 
 $def_one -> close_all();
 $def_two -> close_all();

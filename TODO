@@ -1,0 +1,21 @@
+#
+# $Header$
+#
+
+these are brand-new, very quickly made bindings, so there are still 
+some bugs.  the ones i know about are:
+
+- canvas_demo/canvas-curve.pl bombs when you click in the canvas; 
+  actually at trying to set the bpath property of the new canvas item.
+
+- zooming the canvases by holding the arrows in the spinbuttons sometimes
+  results in a segfault.  not at all sure why.
+
+- the non-english text in canvas_demo/canvas-rich-text.pl is apparently
+  very much not right.
+
+
+other issues:
+
+the documentation in README and Canvas.pm is still exactly the same text
+as the Gnome2 module's files, because i borrowed them.

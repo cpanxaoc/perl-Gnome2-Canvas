@@ -1,0 +1,23 @@
+2003/06/16 13:46 muppetman
+
+	* xs/GnomeCanvasUtil.xs, canvas_demo/canvas-primitives.pl,
+	canvas_demo/canvas-arrowhead.pl: use a GPerlBoxedWrapperClass override
+	to allow GnomeCanvasPoints to be implemented as simple perl array
+	references.
+
+	* Makefile.PL, MANIFEST: make sure we're ready to go out
+
+2003/06/04 23:45 muppetman
+
+	cleanup, making it ready to share with other people
+
+	* canvas_demo/canvas-curve.pl
+
+2003/06/03 13:42 muppetman
+
+	* canvas_demo/canvas-rich-text.pl
+
+2003/06/02 12:00 muppetman
+
+	started from a copy of the Gnome2-Perl module.
+

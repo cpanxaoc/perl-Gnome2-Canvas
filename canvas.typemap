@@ -1,0 +1,25 @@
+TYPEMAP
+
+GnomeCanvasPathDef *	T_GNOME_TYPE_CANVAS_PATH_DEF
+GnomeCanvasPathDef_own *	T_GNOME_TYPE_CANVAS_PATH_DEF_OWN
+GnomeCanvasPathDef_ornull *	T_GNOME_TYPE_CANVAS_PATH_DEF_ORNULL
+GnomeCanvasPathDef_copy *	T_GNOME_TYPE_CANVAS_PATH_DEF_COPY
+GnomeCanvasPathDef_own_ornull *	T_GNOME_TYPE_CANVAS_PATH_DEF_OWN_ORNULL
+
+INPUT
+
+T_GNOME_TYPE_CANVAS_PATH_DEF
+	$var = SvGnomeCanvasPathDef($arg);
+T_GNOME_TYPE_CANVAS_PATH_DEF_ORNULL
+	$var = SvGnomeCanvasPathDef_ornull($arg);
+
+OUTPUT
+
+T_GNOME_TYPE_CANVAS_PATH_DEF
+	$arg = newSVGnomeCanvasPathDef($var);
+T_GNOME_TYPE_CANVAS_PATH_DEF_OWN
+	$arg = newSVGnomeCanvasPathDef_own($var);
+T_GNOME_TYPE_CANVAS_PATH_DEF_COPY
+	$arg = newSVGnomeCanvasPathDef_copy($var);
+T_GNOME_TYPE_CANVAS_PATH_DEF_OWN_ORNULL
+	$arg = newSVGnomeCanvasPathDef_own_ornull($var);

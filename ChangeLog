@@ -5,6 +5,10 @@
 	* Makefile.PL, README: require Glib-1.020, since we require
 	MakeHelper and lots of doc stuff.
 
+	* Makefile.PL: supply the DATE replacement if using a Glib whose
+	MakeHelper doesn't actually perform that sub.  (it was added after
+	1.020 was released.)
+
 2003/12/29 22:52 (+0100) kaffeetisch
 
 	* t/GnomeCanvasPathDef.t: Don't loop over the return values of

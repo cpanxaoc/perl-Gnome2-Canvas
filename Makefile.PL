@@ -98,6 +98,7 @@ package MY;
 
 sub postamble
 {
+	chomp (my $date = `date +"%a %b %d %Y"`);
 	return Glib::MakeHelper->postamble_clean ()
 	     . Glib::MakeHelper->postamble_docs (@main::xs_files)
 	     . Glib::MakeHelper->postamble_rpms (
@@ -109,6 +110,7 @@ sub postamble
 			$build_reqs{'perl-ExtUtils-PkgConfig'},
 		'PERL_GLIB' => $build_reqs{'perl-Glib'},
 		'PERL_GTK' => $build_reqs{'perl-Gtk2'},
+		($Glib::VERSION > 1.020 ? () : (DATE => $date))
 	       );
 }
 package MAIN;

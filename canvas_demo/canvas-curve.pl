@@ -63,6 +63,16 @@ sub draw_curve {
 		if ($current_item) {
 			$current_item->set (bpath => $path_def);
 		} else {
+			# FIXME FIXME FIXME FIXME FIXME FIXME 
+			# we crash, very consistently, right here.
+			# stack trace from GDB says it happens in
+			# gnome_canvas_path_def_new_foreign, attempting
+			# to verify the validity of the ArtBPath in the
+			# PathDef object, deep in the bowels of
+			# gnome_canvas_bpath_set_property.
+			# FIXME FIXME FIXME FIXME FIXME FIXME 
+			warn "FIXME FIXME FIXME FIXME FIXME FIXME\n"
+			   . "i'm about to crash and burn";
 			$current_item = Gnome2::Canvas::Item->new (
 						$root,
 						'Gnome2::Canvas::Bpath',

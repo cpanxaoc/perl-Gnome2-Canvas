@@ -1,3 +1,7 @@
+2004/04/07 00:40 (-0500) muppetman
+
+	* Makefile.PL: check the version of ExtUtils::Depends.
+
 2004/04/07 00:35 (-0500) muppetman
 
 	* Canvas.pm, xs/GnomeCanvas.xs: move pod from Canvas.pm to

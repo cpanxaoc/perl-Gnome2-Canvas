@@ -19,7 +19,7 @@ our %build_reqs = (
 
 # Writing a fake Makefile ensures that CPAN will pick up the correct
 # dependencies and install them.
-unless (eval "use ExtUtils::Depends;"
+unless (eval "use ExtUtils::Depends '$build_reqs{'perl-ExtUtils-Depends'}';"
            . "use ExtUtils::PkgConfig;"
            # just seeing if Glib is available isn't enough, make sure
            # it's recent enough, too 
@@ -53,13 +53,8 @@ Gtk2::CodeGen->parse_maps ('gnomecanvasperl');
 Gtk2::CodeGen->write_boot (ignore => '^Gnome2::Canvas$');
 
 our @xs_files = <xs/*.xs>;
-our %pm_files = (
-	'Canvas.pm' => '$(INST_LIBDIR)/Canvas.pm',
-);
-our %pod_files = (
-#	'Canvas.pm' => '$(INST_MAN3DIR)/Gnome2::Canvas.$(MAN3EXT)',
-	Glib::MakeHelper->do_pod_files (@xs_files),
-);
+our %pm_files = ('Canvas.pm' => '$(INST_LIBDIR)/Canvas.pm',);
+our %pod_files = Glib::MakeHelper->do_pod_files (@xs_files);
 
 # now we're ready to start creating the makefile.
 # we need to use ExtUtils::Depends to get relevant information out of
@@ -88,7 +83,6 @@ WriteMakefile(
 
 
 sub MY::postamble {
-	chomp (my $date = `date +"%a %b %d %Y"`);
 	return Glib::MakeHelper->postamble_clean ()
 	     . Glib::MakeHelper->postamble_docs_full (
 	         DEPENDS => $gnomecanvas,
@@ -102,6 +96,5 @@ sub MY::postamble {
 			$build_reqs{'perl-ExtUtils-PkgConfig'},
 		'PERL_GLIB' => $build_reqs{'perl-Glib'},
 		'PERL_GTK' => $build_reqs{'perl-Gtk2'},
-		'DATE' => $date,
 	       );
 }

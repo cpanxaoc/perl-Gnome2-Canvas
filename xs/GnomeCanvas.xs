@@ -63,8 +63,10 @@ SvArtAffine (SV * sv)
 MODULE = Gnome2::Canvas	PACKAGE = Gnome2::Canvas	PREFIX = gnome_canvas_
 
 BOOT:
+	{
 #include "register.xsh"
 #include "boot.xsh"
+	}
 
 
 SV *
@@ -80,18 +82,19 @@ members (canvas)
 	RETVAL
 
 ##  GtkWidget *gnome_canvas_new (void) 
+##  GtkWidget *gnome_canvas_new_aa (void) 
 GtkWidget *
 gnome_canvas_new (class)
 	SV * class
-    C_ARGS:
-	
-
-##  GtkWidget *gnome_canvas_new_aa (void) 
-GtkWidget *
-gnome_canvas_new_aa (class)
-	SV * class
-    C_ARGS:
-	
+    ALIAS:
+	new_aa = 1
+    CODE:
+	if (ix == 1)
+		RETVAL = gnome_canvas_new_aa ();
+	else
+		RETVAL = gnome_canvas_new ();
+    OUTPUT:
+	RETVAL
 
 ##  GnomeCanvasGroup *gnome_canvas_root (GnomeCanvas *canvas) 
 GnomeCanvasGroup *

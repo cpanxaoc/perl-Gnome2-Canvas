@@ -13,7 +13,7 @@ BuildRequires: perl-ExtUtils-Depends >= @PERL_EXTUTILS_DEPENDS@
 BuildRequires: perl-ExtUtils-PkgConfig >= @PERL_EXTUTILS_DEPENDS@
 BuildRequires: perl-Glib >= @PERL_GLIB@
 BuildRequires: perl-Gtk2 >= @PERL_GTK@
-Requires: libgnomecanvas >= @GNOMECANVAS_RUN@
+Requires: libgnomecanvas >= @GNOME_CANVAS_RUN@
 Requires: perl-Glib >= @PERL_GLIB@
 Requires: perl-Gtk2 >= @PERL_GTK@
 Requires: %(perl -MConfig -le 'if (defined $Config{useithreads}) { print "perl(:WITH_ITHREADS)" } else { print "perl(:WITHOUT_ITHREADS)" }')

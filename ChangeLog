@@ -1,3 +1,8 @@
+2003/09/21 19:42 muppetman
+
+	* Makefile.PL perl-Gnome2-Canvas.spec.in: there was some disagreement
+	about the actual substitution symbols...
+
 2003/09/21 19:36 muppetman
 
 	* Canvas.pm META.yml Makefile.PL README debian/changelog debian/control:

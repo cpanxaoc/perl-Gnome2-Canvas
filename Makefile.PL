@@ -105,8 +105,8 @@ sub postamble
 	my %subs = (
 		'VERSION' => '$(VERSION)',
 		'SOURCE' => '$(DISTNAME)-$(VERSION).tar.gz',
-		'GNOMECANVAS_RUN' => $runtime_reqs{'GnomeCanvas'},
-		'GNOMECANVAS' => $build_reqs{'GnomeCanvas'},
+		'GNOME_CANVAS_RUN' => $runtime_reqs{'GnomeCanvas'},
+		'GNOME_CANVAS' => $build_reqs{'GnomeCanvas'},
 		'PERL_EXTUTILS_DEPENDS' => 
 			$build_reqs{'perl-ExtUtils-Depends'},
 		'PERL_EXTUTILS_PKGCONFIG' => 

@@ -22,6 +22,15 @@
 
 MODULE = Gnome2::Canvas::Item	PACKAGE = Gnome2::Canvas::Item	PREFIX = gnome_canvas_item_
 
+=for apidoc parent
+=for signature $canvasgroup = $item->parent
+Fetch I<$item>'s parent group item.
+=cut
+
+=for apidoc
+=for signature $canvas = $item->canvas
+Fetch the Gnome2::Canvas to which I<$item> is attached.
+=cut
 SV *
 canvas (item)
 	GnomeCanvasItem * item
@@ -88,6 +97,10 @@ gnome_canvas_item_move (item, dx, dy)
 	double dy
 
 ##  void gnome_canvas_item_affine_relative (GnomeCanvasItem *item, const double affine[6]) 
+=for apidoc
+=for arg affine (arrayref) affine transformation matrix
+Combines I<$affine> with I<$item>'s current transformation.
+=cut
 void
 gnome_canvas_item_affine_relative (item, affine)
 	GnomeCanvasItem *item
@@ -96,6 +109,10 @@ gnome_canvas_item_affine_relative (item, affine)
 	item, SvArtAffine (affine)
 
 ##  void gnome_canvas_item_affine_absolute (GnomeCanvasItem *item, const double affine[6]) 
+=for apidoc
+=for arg affine (arrayref) affine transformation matrix
+Replaces I<$item>'s transformation matrix.
+=cut
 void
 gnome_canvas_item_affine_absolute (item, affine)
 	GnomeCanvasItem *item
@@ -156,6 +173,7 @@ void gnome_canvas_item_w2i (GnomeCanvasItem * item, IN_OUTLIST double x, IN_OUTL
 void gnome_canvas_item_i2w (GnomeCanvasItem *item, IN_OUTLIST double x, IN_OUTLIST double y) 
 
 ##  void gnome_canvas_item_i2w_affine (GnomeCanvasItem *item, double affine[6]) 
+# FIXME this is misbound, affine should be a return value
 void
 gnome_canvas_item_i2w_affine (item, affine)
 	GnomeCanvasItem *item
@@ -164,6 +182,7 @@ gnome_canvas_item_i2w_affine (item, affine)
 	item, SvArtAffine (affine)
 
 ##  void gnome_canvas_item_i2c_affine (GnomeCanvasItem *item, double affine[6]) 
+# FIXME this is misbound, affine should be a return value
 void
 gnome_canvas_item_i2c_affine (item, affine)
 	GnomeCanvasItem *item

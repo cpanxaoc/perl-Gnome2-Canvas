@@ -1,3 +1,7 @@
+2004/08/13 22:22 (-0400) muppetman
+
+	* xs/GnomeCanvasItem.xs: apidoc fixes
+
 2004/08/13 07:49 (-0400) muppetman
 
 	* xs/GnomeCanvas.xs: force generation of docs for

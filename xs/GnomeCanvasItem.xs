@@ -40,7 +40,6 @@ members (item)
 ##  GnomeCanvasItem *gnome_canvas_item_new (GnomeCanvasGroup *parent, GType type, const gchar *first_arg_name, ...) 
 GnomeCanvasItem *
 gnome_canvas_item_new (class, parent, object_class, ...)
-	SV * class
 	GnomeCanvasGroup *parent
 	const char * object_class
     PREINIT:

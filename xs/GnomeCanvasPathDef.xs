@@ -40,14 +40,12 @@ BOOT:
 ##  GnomeCanvasPathDef * gnome_canvas_path_def_new (void) 
 GnomeCanvasPathDef_own *
 gnome_canvas_path_def_new (class)
-	SV * class
     C_ARGS:
 	/*void*/
 
 ####  GnomeCanvasPathDef * gnome_canvas_path_def_new_sized (gint length) 
 ##GnomeCanvasPathDef_own *
 ##gnome_canvas_path_def_new_sized (class, length)
-##	SV * class
 ##	gint length
 ##    C_ARGS:
 ##	length
@@ -92,7 +90,6 @@ gnome_canvas_path_def_duplicate (path)
 ##  GnomeCanvasPathDef * gnome_canvas_path_def_concat (const GSList * list) 
 GnomeCanvasPathDef_own *
 gnome_canvas_path_def_concat (class)
-	SV * class
     PREINIT:
 	GSList * list = NULL;
 	int i;

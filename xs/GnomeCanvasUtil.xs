@@ -104,10 +104,13 @@ BOOT:
 
 MODULE = Gnome2::Canvas::Util	PACKAGE = Gnome2::Canvas	PREFIX = gnome_canvas_
 
+=for object Gnome2::Canvas_methods
+
+=cut
+
 ##  int gnome_canvas_get_miter_points (double x1, double y1, double x2, double y2, double x3, double y3, double width, double *mx1, double *my1, double *mx2, double *my2) 
 void
 gnome_canvas_get_miter_points (class, x1, y1, x2, y2, x3, y3, width)
-	SV * class
 	double x1
 	double y1
 	double x2
@@ -130,7 +133,6 @@ gnome_canvas_get_miter_points (class, x1, y1, x2, y2, x3, y3, width)
 ##  void gnome_canvas_get_butt_points (double x1, double y1, double x2, double y2, double width, int project, double *bx1, double *by1, double *bx2, double *by2) 
 void
 gnome_canvas_get_butt_points (class, x1, y1, x2, y2, width, project)
-	SV * class
 	double x1
 	double y1
 	double x2

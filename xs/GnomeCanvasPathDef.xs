@@ -109,6 +109,9 @@ gnome_canvas_path_def_duplicate (path)
 	GnomeCanvasPathDef * path
 
 ##  GnomeCanvasPathDef * gnome_canvas_path_def_concat (const GSList * list) 
+=for apidoc
+=for arg ... Gnome2::Canvas::PathDef objects to concatenate
+=cut
 GnomeCanvasPathDef_own *
 gnome_canvas_path_def_concat (class, ...)
     PREINIT:
@@ -124,6 +127,9 @@ gnome_canvas_path_def_concat (class, ...)
 	g_slist_free (list);
 
 ####  GSList * gnome_canvas_path_def_split (const GnomeCanvasPathDef * path) 
+=for apidoc
+=for signature @pathdefs = $path->split
+=cut
 void
 gnome_canvas_path_def_split (path)
 	GnomeCanvasPathDef * path

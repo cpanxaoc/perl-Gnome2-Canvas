@@ -38,6 +38,10 @@ canvas (item)
 
 
 ##  GnomeCanvasItem *gnome_canvas_item_new (GnomeCanvasGroup *parent, GType type, const gchar *first_arg_name, ...) 
+=for apidoc
+=for arg ... property name => value pairs
+Factory constructor for Gnome2::Canvas::Item subclasses.
+=cut
 GnomeCanvasItem *
 gnome_canvas_item_new (class, parent, object_class, ...)
 	GnomeCanvasGroup *parent

@@ -105,6 +105,9 @@ BOOT:
 MODULE = Gnome2::Canvas::Util	PACKAGE = Gnome2::Canvas	PREFIX = gnome_canvas_
 
 ##  int gnome_canvas_get_miter_points (double x1, double y1, double x2, double y2, double x3, double y3, double width, double *mx1, double *my1, double *mx2, double *my2) 
+=for apidoc
+=for signature ($mx1, $my1, $mx2, $my2) = Gnome2::Canvas->get_miter_points ($x1, $y1, $x2, $y2, $x3, $y3, $width)
+=cut
 void
 gnome_canvas_get_miter_points (class, x1, y1, x2, y2, x3, y3, width)
 	double x1
@@ -127,6 +130,9 @@ gnome_canvas_get_miter_points (class, x1, y1, x2, y2, x3, y3, width)
 	PUSHs (sv_2mortal (newSVnv (my2)));
 
 ##  void gnome_canvas_get_butt_points (double x1, double y1, double x2, double y2, double width, int project, double *bx1, double *by1, double *bx2, double *by2) 
+=for apidoc
+=for signature ($bx1, $by1, $bx2, $by2) = Gnome2::Canvas->get_butt_points ($x1, $y1, $x2, $y2, $width, $project)
+=cut
 void
 gnome_canvas_get_butt_points (class, x1, y1, x2, y2, width, project)
 	double x1

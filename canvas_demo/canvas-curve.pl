@@ -43,9 +43,8 @@ package CanvasBezierCurve;
 
 use strict;
 use Carp;
+use Glib qw(TRUE FALSE);
 use Gnome2::Canvas;
-use constant TRUE => 1;
-use constant FALSE => 0;
 
 use constant STATE_INIT          => 0;
 use constant STATE_FIRST_PRESS   => 1;
@@ -109,8 +108,6 @@ sub draw_curve {
 		$current_item->set_path_def ($path_def);
 
 	} elsif ($current_state == STATE_SECOND_PRESS) {
-		#g_assert (current_item);
-
 		$current_points[6] = $x;
 		$current_points[7] = $y;
 

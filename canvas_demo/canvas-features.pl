@@ -1,9 +1,8 @@
 package CanvasFeatures;
 
 use strict;
+use Glib qw(TRUE FALSE);
 use Gnome2::Canvas;
-use constant TRUE => 1;
-use constant FALSE => 0;
 
 use constant GNOME_PAD_SMALL => 4;
 

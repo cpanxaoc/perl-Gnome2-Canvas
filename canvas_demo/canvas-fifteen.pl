@@ -1,8 +1,7 @@
 package CanvasFifteen;
 use strict;
 use Gnome2::Canvas;
-use constant TRUE => 1;
-use constant FALSE => 0;
+use Glib qw(TRUE FALSE);
 use constant PIECE_SIZE => 50;
 
 

@@ -1,8 +1,7 @@
 package CanvasArrowhead;
 use strict;
+use Glib qw(TRUE FALSE);
 use Gnome2::Canvas;
-use constant TRUE => 1;
-use constant FALSE => 0;
 
 use constant LEFT            => 50.0;
 use constant RIGHT           => 350.0;

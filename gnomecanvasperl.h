@@ -19,8 +19,8 @@
  * $Header$
  */
 
-#ifndef _GNOME2PERL_H_
-#define _GNOME2PERL_H_
+#ifndef _GNOMECANVASPERL_H_
+#define _GNOMECANVASPERL_H_
 
 #include <gtk2perl.h>
 ///#undef _ /* gnome and perl disagree on this one */
@@ -51,4 +51,4 @@ GType gnomecanvasperl_canvas_path_def_get_type (void) G_GNUC_CONST;
 # define newSVGnomeCanvasPathDef_own_ornull(val)	((val) ? newSVGnomeCanvasPathDef_own(val) : &PL_sv_undef)
 #endif /* GNOME_TYPE_CANVAS_PATH_DEF */
 
-#endif /* _GNOME2PERL_H_ */
+#endif /* _GNOMECANVASPERL_H_ */

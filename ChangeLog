@@ -1,3 +1,15 @@
+2004/01/12 22:48 (-0500) muppetman
+
+	* Canvas.pm: updated docs.
+
+	* xs/GnomeCanvas.xs: doc fixes.  re-order some xsubs to have better
+	doc ordering.  hide pixels_per_unit from docs; prefer get_pixels_per
+	unit since there's a set_pixels_per_unit.  adjust ALIASed xsubs to
+	avoid having an extra unused name in the symbol table.
+
+	* xs/GnomeCanvasItem.xs: mangle ALIAS ordering to remove invalid
+	entries from the symbol table.
+
 2004/01/12 18:34 (-0500) muppetman
 
 	* canvas_demo/canvas-curve.pl, canvas_demo/canvas-arrowhead.pl,

@@ -27,9 +27,9 @@ unless (eval "use ExtUtils::Depends;"
            . "use ExtUtils::PkgConfig;"
            # just seeing if Glib is available isn't enough, make sure
            # it's recent enough, too 
-           . "use Glib atleast => '$build_reqs{'perl-Glib'}';"
+           . "use Glib '$build_reqs{'perl-Glib'}';"
 	   . "use Glib::MakeHelper;"
-           . "use Gtk2 atleast => '$build_reqs{'perl-Gtk2'}';"
+           . "use Gtk2 '$build_reqs{'perl-Gtk2'}';"
            . "use Gtk2::CodeGen;"
            . "1") {
    warn "$@\n";

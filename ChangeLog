@@ -1,3 +1,8 @@
+2004/08/13 07:49 (-0400) muppetman
+
+	* xs/GnomeCanvas.xs: force generation of docs for
+	Gnome2::Canvas::Text, which has properties but no methods.
+
 2004/06/06 11:52 (-0400) muppetman
 
 	* Canvas.pm, NEWS, README: stable release 1.001

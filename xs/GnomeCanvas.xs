@@ -99,6 +99,10 @@ BOOT:
 
 =cut
 
+=for object Gnome2::Canvas::Text - Text as CanvasItems
+
+=cut
+
 =for object Gnome2::Canvas::Widget - Gtk2::Widgets as CanvasItems
 
 =cut

@@ -1,3 +1,14 @@
+2004/01/25 23:13 (-0500) muppetman
+
+	* gnomecanvasperl.h, maps: rearrange the boxed type support for
+	GnomeCanvasPathDef.  it's now defined in the maps file like the rest,
+	and the definition in gnomecanvasperl.h can be easily avoided if/when
+	libgnomecanvas provides the appropriate boxed type support.
+
+	* xs/GnomeCanvasPathDef.xs: change boxed type support to use ref
+	instead of duplicate for copy.  add \$pathdef->copy, with doc that
+	reminds people it's not the same as Glib::Boxed::copy.
+
 2004/01/24 21:44 (-0500) rwmcfa1
 
 	* Makefile.PL: removed runtime_reqs stuff, replaced by the pkg-config 

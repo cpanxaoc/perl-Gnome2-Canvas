@@ -1,3 +1,11 @@
+Overview of Changes in 0.93
+===========================
+
+* Check that we're using at least ExtUtils::Depends 0.2.
+* Require ExtUtils::PkgConfig 1.03.
+* Add Gnome2::Canvas::GET_VERSION and Gnome2::CHECK_VERSION. [Emmaneule Bassi]
+* Pod improvements.
+
 Overview of Changes in Gnome2::Canvas 0.92
 ==========================================
 

@@ -1,5 +1,11 @@
 2004/03/16 13:58 (-0500) muppetman
 
+	* Canvas.pm, NEWS, README: beta release 0.93
+
+	* Makefile.PL: require ExtUtils::PkgConfig 1.03 and Glib 1.039
+
+2004/03/16 13:58 (-0500) muppetman
+
 	* xs/GnomeCanvas.xs: flesh out the pod for GET_VERSION_INFO.
 
 2004/03/16 01:05 (-0500) muppetman

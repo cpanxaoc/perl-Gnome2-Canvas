@@ -1,5 +1,5 @@
 
-Gnome2::Canvas version 0.93
+Gnome2::Canvas version 1.00
 ===========================
 
 The Gnome2::Canvas module allows a perl developer to use the GnomeCanvas
@@ -53,8 +53,8 @@ DEPENDENCIES
 This module requires these other modules and libraries:
 
   perl >= 5.8.0
-  Glib >= 1.039 (perl module and requisite C libraries)
-  Gtk2 >= 1.039 (perl module and requisite C libraries)
+  Glib >= 1.040 (perl module and requisite C libraries)
+  Gtk2 >= 1.040 (perl module and requisite C libraries)
   libgnomecanvas > 2.x (C library)
 
 In order to build it from source, you'll also need

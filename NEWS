@@ -1,3 +1,9 @@
+Overview of Changes in 1.0
+==========================
+
+* Require stable Glib/Gtk2 1.040
+* Spit and polish.
+
 Overview of Changes in 0.93
 ===========================
 

@@ -1,3 +1,14 @@
+2004/03/29 12:04 (-0500) muppetman
+
+	* Canvas.pm, README, NEWS, Makefile.PL: stable release 1.0
+
+2004/03/20 23:27 (-0500) muppetman
+
+	* canvas_demo/canvas-arrowhead.pl, canvas_demo/canvas-curve.pl,
+	canvas_demo/canvas-features.pl, canvas_demo/canvas-fifteen.pl,
+	canvas_demo/canvas-primitives.pl, canvas_demo/canvas-rich-text.pl:
+	use Glib's TRUE and FALSE constants instead of defining our own.
+
 2004/03/18 14:26 (-0500) muppetman
 
 	* Makefile.PL, README: patch from Torsten corrects the EU::PkgConfig

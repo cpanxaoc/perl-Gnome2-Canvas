@@ -12,8 +12,8 @@ use File::Spec;
 our %build_reqs = (
 	'perl-ExtUtils-Depends'   => '0.200',
 	'perl-ExtUtils-PkgConfig' => '1.03',
-	'perl-Glib'               => '1.039',
-	'perl-Gtk2'               => '1.039',
+	'perl-Glib'               => '1.040',
+	'perl-Gtk2'               => '1.040',
 	'GnomeCanvas'             => '2.0.0',
 );
 

@@ -1,3 +1,10 @@
+libgnome2-canvas-perl (0.32-1) unstable; urgency=low
+
+  * Changed to use ExtUtils::PkgConfig instead of Glib::PkgConfig.
+  * Fixed some packaging issues.
+
+ -- muppet <scott at asofyet dot org>  Sun, 21 Sep 2003 19:34:26 -0400
+
 libgnome2-canvas-perl (0.28-2) unstable; urgency=low
 
   * Updated to latest CVS.

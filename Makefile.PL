@@ -11,14 +11,14 @@ use File::Spec;
 our %build_reqs = (
 	'perl-ExtUtils-Depends'   => '0.1',
 	'perl-ExtUtils-PkgConfig' => '0.1',
-	'perl-Glib'               => '1.00rc1',
-	'perl-Gtk2'               => '1.00rc1',
-	'Glade'                    => '2.0.0',
+	'perl-Glib'               => '1.00rc2',
+	'perl-Gtk2'               => '1.00rc2',
+	'GnomeCanvas'             => '2.0.0',
 );
 
 # minimum required version of dependancies we need to run
 our %runtime_reqs = (
-	'Glade'	=> undef,
+	'GnomeCanvas' => undef,
 );
 
 # Writing a fake Makefile ensures that CPAN will pick up the correct
@@ -45,7 +45,7 @@ unless (eval "use ExtUtils::Depends;"
 }
 
 %pkgcfg = ExtUtils::PkgConfig->find ('libgnomecanvas-2.0 >= '
-				     .$build_reqs{Glade});
+				     .$build_reqs{GnomeCanvas});
 
 $runtime_reqs{GnomeCanvas} = $pkgcfg{modversion};
 

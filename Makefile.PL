@@ -11,8 +11,8 @@ use File::Spec;
 our %build_reqs = (
 	'perl-ExtUtils-Depends'   => '0.1',
 	'perl-ExtUtils-PkgConfig' => '0.1',
-	'perl-Glib'               => '1.00rc2',
-	'perl-Gtk2'               => '1.00rc2',
+	'perl-Glib'               => '1.01',
+	'perl-Gtk2'               => '1.01',
 	'GnomeCanvas'             => '2.0.0',
 );
 
@@ -25,11 +25,12 @@ our %runtime_reqs = (
 # dependencies and install them.
 unless (eval "use ExtUtils::Depends;"
            . "use ExtUtils::PkgConfig;"
-           . "use Gtk2::CodeGen;"
            # just seeing if Glib is available isn't enough, make sure
            # it's recent enough, too 
-           . "use Glib '$build_reqs{'perl-Glib'}';"
-           . "use Gtk2 '$build_reqs{'perl-Gtk2'}';"
+           . "use Glib atleast => '$build_reqs{'perl-Glib'}';"
+	   . "use Glib::MakeHelper;"
+           . "use Gtk2 atleast => '$build_reqs{'perl-Gtk2'}';"
+           . "use Gtk2::CodeGen;"
            . "1") {
    warn "$@\n";
    WriteMakefile(
@@ -57,6 +58,15 @@ mkdir 'build', 0777;
 Gtk2::CodeGen->parse_maps ('gnomecanvasperl');
 Gtk2::CodeGen->write_boot (ignore => '^Gnome2::Canvas$');
 
+@xs_files = <xs/*.xs>;
+%pm_files = (
+	'Canvas.pm' => '$(INST_LIBDIR)/Canvas.pm',
+);
+%pod_files = (
+	'Canvas.pm' => '$(INST_MAN3DIR)/Gnome2::Canvas.$(MAN3EXT)',
+	Glib::MakeHelper->do_pod_files (@xs_files),
+);
+
 # now we're ready to start creating the makefile.
 # we need to use ExtUtils::Depends to get relevant information out of
 # the Glib extension, and to save config information for other modules which
@@ -79,32 +89,17 @@ WriteMakefile(
     VERSION_FROM    => 'Canvas.pm', # finds $VERSION
     ABSTRACT_FROM   => 'Canvas.pm', # retrieve abstract from module
     XSPROTOARG      => '-noprototypes',
+    MAN3PODS        => \%pod_files,
     $gnome2->get_makefile_vars,
 );
 
-#
-# there's a bug in the MakeMaker output which results in .xs files in a
-# subdirectory being turned into .o files in this dir.  the bug is a missing
-# -o on the compiler command line.  this is a hackish fix for it.
-#
 package MY;
-use Cwd;
-
-sub const_cccmd {
-	my $inherited = shift->SUPER::const_cccmd (@_);
-	$inherited .= ' -o $@';
-	$inherited;
-}
 
 sub postamble
 {
-	my @dirs = qw{rpms rpms/BUILD rpms/RPMS rpms/SOURCES
-		      rpms/SPECS rpms/SRPMS};
-	my $cwd = getcwd();
-
-	my %subs = (
-		'VERSION' => '$(VERSION)',
-		'SOURCE' => '$(DISTNAME)-$(VERSION).tar.gz',
+	return Glib::MakeHelper->postamble_clean ()
+	     . Glib::MakeHelper->postamble_docs (@main::xs_files)
+	     . Glib::MakeHelper->postamble_rpms (
 		'GNOME_CANVAS_RUN' => $runtime_reqs{'GnomeCanvas'},
 		'GNOME_CANVAS' => $build_reqs{'GnomeCanvas'},
 		'PERL_EXTUTILS_DEPENDS' => 
@@ -113,27 +108,6 @@ sub postamble
 			$build_reqs{'perl-ExtUtils-PkgConfig'},
 		'PERL_GLIB' => $build_reqs{'perl-Glib'},
 		'PERL_GTK' => $build_reqs{'perl-Gtk2'},
-	);
-	
-	my $substitute = '$(PERL) -npe \''.join('; ', map {
-			"s/\\\@$_\\\@/$subs{$_}/g";
-		} keys %subs).'\'';
-
-	"
-realclean ::
-	-\$(RM_RF) build perl-\$(DISTNAME).spec
-
-rpms/:
-	-mkdir @dirs
-
-SUBSTITUTE=$substitute
-
-perl-\$(DISTNAME).spec: perl-\$(DISTNAME).spec.in \$(VERSION_FROM) Makefile
-	\$(SUBSTITUTE) \$< > \$@
-
-dist-rpms: Makefile dist perl-\$(DISTNAME).spec rpms/
-	cp \$(DISTNAME)-\$(VERSION).tar.gz rpms/SOURCES/
-	rpmbuild -ba --define \"_topdir $cwd/rpms\" perl-\$(DISTNAME).spec
-"
+	       );
 }
 package MAIN;

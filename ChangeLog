@@ -1,6 +1,7 @@
 2003/09/02 21:08 muppetman
 
-	* Canvas.pm, README: prep for 0.30 release.  flesh out the pod a bit.
+	* Canvas.pm, README, META.yml, debian/changelog: prep for 0.30 release.
+	flesh out the pod a bit.
 	* canvas.typemap: use T_GPERL_GENERIC_WRAPPER
 	* Makefile.PL: require Glib 0.97 (because of the new typemap stuff);
 	update the build to do prereqs properly
@@ -8,8 +9,7 @@
 	* MANIFEST.SKIP: new
 	* canvas_demo/canvas-primitives.pl, xs/GnomeCanvasPathDef.xs:
 	commentary
-
-sfcvs commit -m "consolidate the constructors into one aliased xsub" xs/GnomeCanvas.xs
+	* xs/GnomeCanvas.xs: consolidate the constructors into one aliased xsub
 
 2003/08/19 21:11 rwmcfa1
 

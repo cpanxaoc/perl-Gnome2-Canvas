@@ -12,7 +12,7 @@ our %build_reqs = (
 	'perl-ExtUtils-Depends'   => '0.1',
 	'perl-ExtUtils-PkgConfig' => '0.1',
 	'perl-Glib'               => '1.01',
-	'perl-Gtk2'               => '1.01',
+	'perl-Gtk2'               => '1.00',
 	'GnomeCanvas'             => '2.0.0',
 );
 

@@ -1,3 +1,9 @@
+2003/11/13 23:58 (-0500) muppetman
+
+	* Makefile.PL, README, Canvas.pm: bump version to 0.34.
+	require Glib 1.01, but only Gtk2 1.00 -- we only need the docgen
+	stuff from Glib, and nothing new from Gtk2.
+
 2003/11/11 00:36 (-0500) muppetman
 
 	* MANIFEST, debian/*: remove the debian packaging files, since having

@@ -105,7 +105,12 @@ BOOT:
 # to avoid name clashes.
 #
 
-=for object Gnome2::Canvas_methods (Gnome2::Canvas) a blurb
+##=for object Gnome2::Canvas_methods (Gnome2::Canvas) a blurb
+
+=for object Gnome2::Canvas Perl interface to the Gnome Canvas
+=cut
+
+=for include ! podselect Canvas.pm
 =cut
 
 SV *

@@ -24,14 +24,13 @@ bootstrap Gnome2::Canvas $VERSION;
 
 1;
 __END__
-# Below is stub documentation for your module. You'd better edit it!
 
-=head1 NAME
-
-Gnome2::Canvas - Perl interface to the Gnome Canvas
+# this pod is included in the pod generated for Gnome2::Canvas from
+# the xs source by Glib::GenPod.  NAME is not necessary.
 
 =head1 SYNOPSIS
 
+  use Gtk2 -init;
   use Gnome2::Canvas;
   $win = Gtk2::Window->new;
   $frame = Gtk2::Frame->new;
@@ -82,9 +81,8 @@ Gnome2::Canvas::index(3pm) lists the generated Perl API reference PODs.
 
 =head1 AUTHOR
 
-muppet E<lt>scott at asofyet dot orgE<gt>
-
-If you want to own this project, please let me know.
+muppet <scott at asofyet dot org>, with patches from
+Torsten Schoenfeld <kaffetisch at web dot de>.
 
 =head1 COPYRIGHT AND LICENSE
 

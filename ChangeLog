@@ -1,3 +1,14 @@
+2003/12/05 15:51 (-0500) muppetman
+
+	* xs/GnomeCanvasPathDef.xs: another update from kaffee -- don't leak
+	the return values of pathdef functions.
+
+	* Makefile.PL, Canvas.pm, xs/GnomeCanvas.xs: some hacks to the pod
+	generation for the Gnome2::Canvas manpage, in an attempt to get rid
+	of the horrible Gnome2::Canvas_methods.  this merges the pod from 
+	the pm file into the pod generated from the xs file; the output is...
+	well, functional.
+
 2003/12/05 00:14 (-0500) muppetman
 
 	stuff from kaffee, who is working on a test suite.

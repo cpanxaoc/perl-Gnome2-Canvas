@@ -63,7 +63,7 @@ Gtk2::CodeGen->write_boot (ignore => '^Gnome2::Canvas$');
 	'Canvas.pm' => '$(INST_LIBDIR)/Canvas.pm',
 );
 %pod_files = (
-	'Canvas.pm' => '$(INST_MAN3DIR)/Gnome2::Canvas.$(MAN3EXT)',
+#	'Canvas.pm' => '$(INST_MAN3DIR)/Gnome2::Canvas.$(MAN3EXT)',
 	Glib::MakeHelper->do_pod_files (@xs_files),
 );
 

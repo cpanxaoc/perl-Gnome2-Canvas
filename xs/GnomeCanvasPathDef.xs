@@ -116,17 +116,17 @@ gnome_canvas_path_def_split (path)
 	
 
 ##  GnomeCanvasPathDef * gnome_canvas_path_def_open_parts (const GnomeCanvasPathDef * path) 
-GnomeCanvasPathDef *
+GnomeCanvasPathDef_own *
 gnome_canvas_path_def_open_parts (path)
 	const GnomeCanvasPathDef * path
 
 ##  GnomeCanvasPathDef * gnome_canvas_path_def_closed_parts (const GnomeCanvasPathDef * path) 
-GnomeCanvasPathDef *
+GnomeCanvasPathDef_own *
 gnome_canvas_path_def_closed_parts (path)
 	const GnomeCanvasPathDef * path
 
 ##  GnomeCanvasPathDef * gnome_canvas_path_def_close_all (const GnomeCanvasPathDef * path) 
-GnomeCanvasPathDef *
+GnomeCanvasPathDef_own *
 gnome_canvas_path_def_close_all (path)
 	const GnomeCanvasPathDef * path
 

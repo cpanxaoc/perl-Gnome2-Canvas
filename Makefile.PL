@@ -2,6 +2,7 @@
 # $Header$
 #
 
+use strict;
 use 5.008;
 use ExtUtils::MakeMaker;
 use Cwd;
@@ -11,7 +12,7 @@ use File::Spec;
 our %build_reqs = (
 	'perl-ExtUtils-Depends'   => '0.1',
 	'perl-ExtUtils-PkgConfig' => '0.1',
-	'perl-Glib'               => '1.01',
+	'perl-Glib'               => '1.020', # we need Glib::MakeHelper
 	'perl-Gtk2'               => '1.00',
 	'GnomeCanvas'             => '2.0.0',
 );
@@ -45,8 +46,8 @@ unless (eval "use ExtUtils::Depends;"
    exit 1; # not reached
 }
 
-%pkgcfg = ExtUtils::PkgConfig->find ('libgnomecanvas-2.0 >= '
-				     .$build_reqs{GnomeCanvas});
+my %pkgcfg = ExtUtils::PkgConfig->find ('libgnomecanvas-2.0 >= '
+				       . $build_reqs{GnomeCanvas});
 
 $runtime_reqs{GnomeCanvas} = $pkgcfg{modversion};
 
@@ -58,11 +59,11 @@ mkdir 'build', 0777;
 Gtk2::CodeGen->parse_maps ('gnomecanvasperl');
 Gtk2::CodeGen->write_boot (ignore => '^Gnome2::Canvas$');
 
-@xs_files = <xs/*.xs>;
-%pm_files = (
+our @xs_files = <xs/*.xs>;
+our %pm_files = (
 	'Canvas.pm' => '$(INST_LIBDIR)/Canvas.pm',
 );
-%pod_files = (
+our %pod_files = (
 #	'Canvas.pm' => '$(INST_MAN3DIR)/Gnome2::Canvas.$(MAN3EXT)',
 	Glib::MakeHelper->do_pod_files (@xs_files),
 );
@@ -72,7 +73,7 @@ Gtk2::CodeGen->write_boot (ignore => '^Gnome2::Canvas$');
 # the Glib extension, and to save config information for other modules which
 # will chain from this one.
 
-$gnome2 = ExtUtils::Depends->new ('Gnome2::Canvas', 'Gtk2', 'Glib');
+my $gnome2 = ExtUtils::Depends->new ('Gnome2::Canvas', 'Gtk2', 'Glib');
 $gnome2->set_inc ($pkgcfg{cflags});
 $gnome2->set_libs ($pkgcfg{libs});
 $gnome2->add_xs (<xs/*.xs>);

@@ -1,3 +1,8 @@
+2003/07/07 23:06 muppetman
+
+	* Makefile.PL: use new args of Gtk2::CodeGen->write_boot to avoid
+	boot problems
+
 2003/07/05 00:42 muppetman
 
 	* xs/GnomeCanvasBpath.xs, canvas_demo/canvas-curve.pl,

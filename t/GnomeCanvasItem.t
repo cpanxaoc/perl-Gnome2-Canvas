@@ -4,7 +4,7 @@ use Test::More;
 use Gnome2::Canvas;
 
 if (Gtk2->init_check) {
-	plan tests => 15;
+	plan tests => 19;
 } else {
 	plan skip_all => 'unable to open display, nothing to test';
 }
@@ -38,8 +38,22 @@ $item -> request_update();
 # warn $item -> w2i(0, 0);
 # warn $item -> i2w(23, 42);
 
+# this is broken, and will generate warnings
+warn "\n# ignore the next two warnings\n";
 $item -> i2w_affine([23, 23, 42, 42, 0, 0]);
 $item -> i2c_affine([23, 23, 42, 42, 0, 0]);
+
+# these signatures requires 1.002.
+my $affine;
+$affine = $item -> i2w_affine;
+isa_ok ($affine, 'ARRAY');
+is (scalar(@$affine), 6);
+print "i2w_affine @$affine\n";
+$affine = $item -> i2c_affine;
+isa_ok ($affine, 'ARRAY');
+is (scalar(@$affine), 6);
+print "i2c_affine @$affine\n";
+
 
 $item -> reparent($group);
 $item -> grab_focus();

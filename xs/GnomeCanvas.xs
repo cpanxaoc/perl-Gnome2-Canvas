@@ -420,12 +420,30 @@ gnome_canvas_request_redraw (canvas, x1, y1, x2, y2)
 	int y2
 
 ##  void gnome_canvas_w2c_affine (GnomeCanvas *canvas, double affine[6]) 
-void
-gnome_canvas_w2c_affine (canvas, a)
+=for apidoc
+=for signature $affine = $canvas->w2c_affine
+=for arg a (__hide__)
+Fetch the affine transform that converts from world coordinates to canvas
+pixel coordinates.
+
+Note: This method was completely broken for all
+$Gnome2::Canvas::VERSION < 1.002.
+=cut
+SV *
+gnome_canvas_w2c_affine (canvas, a=NULL)
 	GnomeCanvas *canvas
 	SV * a
-    C_ARGS:
-	canvas, SvArtAffine (a)
+    PREINIT:
+	double affine[6];
+    CODE:
+	if (a != NULL || items > 1)
+		warn ("Gnome2::Canvas::w2c_affine() was broken before 1.002;"
+		      " the second parameter does nothing (see the Gnome2::"
+		      "Canvas manpage)");
+	gnome_canvas_w2c_affine (canvas, affine);
+	RETVAL = newSVArtAffine (affine);
+    OUTPUT:
+	RETVAL
 
 ##  void gnome_canvas_w2c (GnomeCanvas *canvas, double wx, double wy, int *cx, int *cy) 
 ##  void gnome_canvas_w2c_d (GnomeCanvas *canvas, double wx, double wy, double *cx, double *cy) 

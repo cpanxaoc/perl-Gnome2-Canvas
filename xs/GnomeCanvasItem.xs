@@ -173,22 +173,48 @@ void gnome_canvas_item_w2i (GnomeCanvasItem * item, IN_OUTLIST double x, IN_OUTL
 void gnome_canvas_item_i2w (GnomeCanvasItem *item, IN_OUTLIST double x, IN_OUTLIST double y) 
 
 ##  void gnome_canvas_item_i2w_affine (GnomeCanvasItem *item, double affine[6]) 
-# FIXME this is misbound, affine should be a return value
-void
-gnome_canvas_item_i2w_affine (item, affine)
-	GnomeCanvasItem *item
-	SV * affine
-    C_ARGS:
-	item, SvArtAffine (affine)
-
 ##  void gnome_canvas_item_i2c_affine (GnomeCanvasItem *item, double affine[6]) 
-# FIXME this is misbound, affine should be a return value
-void
-gnome_canvas_item_i2c_affine (item, affine)
+=for apidoc i2c_affine
+=for signature $affine = $item->i2c_affine
+=for arg a (__hide__)
+Fetch the affine transform that converts from item-relative coordinates to
+canvas pixel coordinates.
+
+Note: This method was completely broken for all
+$Gnome2::Canvas::VERSION < 1.002.
+=cut
+
+=for apidoc
+=for signature $affine = $item->i2w_affine
+=for arg a (__hide__)
+Fetch the affine transform that converts from item's coordinate system to
+world coordinates.
+
+Note: This method was completely broken for all
+$Gnome2::Canvas::VERSION < 1.002.
+=cut
+SV *
+gnome_canvas_item_i2w_affine (item, a=NULL)
 	GnomeCanvasItem *item
-	SV * affine
-    C_ARGS:
-	item, SvArtAffine (affine)
+	SV * a
+    ALIAS:
+	i2c_affine = 1
+    PREINIT:
+	double affine[6];
+    CODE:
+	if (a != NULL || items > 1)
+		warn ("Gnome2::Canvas::%s() was broken before 1.002;"
+		      " the second parameter does nothing (see the Gnome2::"
+		      "Canvas manpage)",
+		      ix == 0 ? "i2w_affine" : "i2c_affine");
+	if (ix == 1)
+		gnome_canvas_item_i2c_affine (item, affine);
+	else
+		gnome_canvas_item_i2w_affine (item, affine);
+	RETVAL = newSVArtAffine (affine);
+    OUTPUT:
+	RETVAL
+
 
 ##  void gnome_canvas_item_reparent (GnomeCanvasItem *item, GnomeCanvasGroup *new_group) 
 void

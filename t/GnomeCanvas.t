@@ -4,7 +4,7 @@ use Test::More;
 use Gnome2::Canvas;
 
 if (Gtk2->init_check) {
-	plan tests => 23;
+	plan tests => 25;
 } else {
 	plan skip_all => 'unable to open display, nothing to test';
 }
@@ -34,7 +34,18 @@ is_deeply([$canvas -> get_scroll_offsets()], [0, 0]);
 # $canvas -> request_redraw_uta(...);
 
 $canvas -> request_redraw(10, 10, 12, 12);
+
+# w2c_affine was misbound before 1.002; make sure we still allow
+# code that uses the broken signature.
+warn "\n# ignore the warning about w2c_affine here:\n";
 $canvas -> w2c_affine([10, 10, 12, 12, 23, 23]);
+
+# and test the proper signature.
+my $affine = $canvas->w2c_affine;
+isa_ok ($affine, 'ARRAY');
+is (scalar(@$affine), 6);
+print "w2c_affine @$affine\n";
+
 
 is_deeply([$canvas -> w2c(23, 43)], [0, 96]);
 is_deeply([$canvas -> w2c_d(23, 43)], [0, 96]);

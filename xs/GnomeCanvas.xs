@@ -100,17 +100,15 @@ BOOT:
 =cut
 
 #
-# and now back to Gnome2::Canvas... but there's already a Gnome2::Canvas,
-# which will come from the pm file.  let's call this one Canvas_methods
-# to avoid name clashes.
+# and now back to Gnome2::Canvas
 #
 
-##=for object Gnome2::Canvas_methods (Gnome2::Canvas) a blurb
-
 =for object Gnome2::Canvas Perl interface to the Gnome Canvas
+
 =cut
 
 =for include ! podselect Canvas.pm
+
 =cut
 
 SV *

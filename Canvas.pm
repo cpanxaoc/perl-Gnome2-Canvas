@@ -54,10 +54,6 @@ __END__
   
   Gtk2->main;
 
-=head1 ABSTRACT
-
-  Perl bindings to the 2.x series of the Gnome Canvas widget.
-
 =head1 DESCRIPTION
 
 The Gnome2::Canvas module allows a perl developer to use the Gnome Canvas.

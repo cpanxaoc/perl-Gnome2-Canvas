@@ -1,3 +1,11 @@
+2003/12/05 16:04 (-0500) muppetman
+
+	* Canvas.pm, Makefile.PL: can't get ABSTRACT without head name,
+	so put it into the WriteMakefile call.
+
+	* xs/GnomeCanvas.xs, xs/GnomeCanvasUtil.xs: okay, Canvas_methods
+	is *really* gone now.
+
 2003/12/05 15:51 (-0500) muppetman
 
 	* xs/GnomeCanvasPathDef.xs: another update from kaffee -- don't leak

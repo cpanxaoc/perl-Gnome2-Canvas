@@ -146,14 +146,45 @@ gnome_canvas_get_butt_points (class, x1, y1, x2, y2, width, project)
 	PUSHs (sv_2mortal (newSVnv (bx2)));
 	PUSHs (sv_2mortal (newSVnv (by2)));
 
-###  double gnome_canvas_polygon_to_point (double *poly, int num_points, double x, double y) 
-#double
-#gnome_canvas_polygon_to_point (poly, num_points, x, y)
-#	double *poly
-#	int num_points
-#	double x
-#	double y
-#
+##  double gnome_canvas_polygon_to_point (double *poly, int num_points, double x, double y) 
+double
+gnome_canvas_polygon_to_point (class, poly_ref, x, y)
+	SV *poly_ref
+	double x
+	double y
+    PREINIT:
+	double *poly;
+	AV *array;
+	SV **value;
+	int length, i;
+    CODE:
+	if (! (SvRV (poly_ref) && SvTYPE (SvRV (poly_ref)) == SVt_PVAV))
+		croak ("the polygon parameter has to be a reference to an array");
+
+	array = (AV *) SvRV (poly_ref);
+	length = av_len (array);
+
+	if (length % 2 != 1)
+		croak ("the polygon array has to contain an even number of coordinates");
+
+	poly = g_new0 (double, length + 1);
+
+	for (i = 0; i <= length; i += 2) {
+		value = av_fetch (array, i, 0);
+		if (value && SvOK (*value))
+			poly[i] = SvNV (*value);
+
+		value = av_fetch (array, i + 1, 0);
+		if (value && SvOK (*value))
+			poly[i + 1] = SvNV (*value);
+	}
+
+	RETVAL = gnome_canvas_polygon_to_point (poly, length + 1, x, y);
+
+	g_free (poly);
+    OUTPUT:
+	RETVAL
+
 ###  void gnome_canvas_render_svp (GnomeCanvasBuf *buf, ArtSVP *svp, guint32 rgba) 
 #void
 #gnome_canvas_render_svp (buf, svp, rgba)

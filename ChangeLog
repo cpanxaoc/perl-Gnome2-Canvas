@@ -1,3 +1,14 @@
+2003/12/07 13:47 (+0100) kaffeetisch
+
+	A t/GnomeCanvas.t
+	A t/GnomeCanvasItem.t
+	A t/GnomeCanvasPathDef.t
+	* MANIFEST: Add a test suite.
+
+	* t/GnomeCanvas.t
+	* xs/GnomeCanvasUtil.xs: Implement and test
+	Gnome2::Canvas::point_to_polygon.
+
 2003/12/05 16:04 (-0500) muppetman
 
 	* Canvas.pm, Makefile.PL: can't get ABSTRACT without head name,

@@ -38,7 +38,7 @@ $gnome2->save_config ('build/IFiles.pm');
 WriteMakefile(
     NAME            => 'Gnome2::Canvas',
     VERSION_FROM    => 'Canvas.pm', # finds $VERSION
-    PREREQ_PM       => {Gtk2 => 0.25}, # e.g., Module::Name => 1.1
+    PREREQ_PM       => {Gtk2 => 0.26}, # e.g., Module::Name => 1.1
     ABSTRACT_FROM   => 'Canvas.pm', # retrieve abstract from module
     XSPROTOARG      => '-noprototypes',
     $gnome2->get_makefile_vars,

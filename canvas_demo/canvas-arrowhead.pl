@@ -17,11 +17,11 @@ sub set_dimension {
 	my ($canvas, $arrow_name, $text_name,
 	    $x1, $y1, $x2, $y2, $tx, $ty, $dim) = @_;
 
-	$canvas->get_data ($arrow_name)->set (points => [$x1, $y1, $x2, $y2]);
+	$canvas->{$arrow_name}->set (points => [$x1, $y1, $x2, $y2]);
 
-	$canvas->get_data ($text_name)->set (text => $dim,
-	                                     x => $tx,
-	                                     y => $ty);
+	$canvas->{$text_name}->set (text => $dim,
+	                            x => $tx,
+	                            y => $ty);
 
 }
 
@@ -37,17 +37,17 @@ sub move_drag_box {
 sub set_arrow_shape {
 	my $canvas = shift;
 
-	my $width   = $canvas->get_data ('width');
-	my $shape_a = $canvas->get_data ('shape_a');
-	my $shape_b = $canvas->get_data ('shape_b');
-	my $shape_c = $canvas->get_data ('shape_c');
+	my $width   = $canvas->{width};
+	my $shape_a = $canvas->{shape_a};
+	my $shape_b = $canvas->{shape_b};
+	my $shape_c = $canvas->{shape_c};
 
 	# Big arrow
 
-	$canvas->get_data ('big_arrow')->set (width_pixels => 10 * $width,
-	                                      arrow_shape_a => $shape_a * 10,
-	                                      arrow_shape_b => $shape_b * 10,
-	                                      arrow_shape_c => $shape_c * 10);
+	$canvas->{big_arrow}->set (width_pixels => 10 * $width,
+	                           arrow_shape_a => $shape_a * 10,
+	                           arrow_shape_b => $shape_b * 10,
+	                           arrow_shape_c => $shape_c * 10);
 
 	# Outline
 
@@ -62,19 +62,19 @@ sub set_arrow_shape {
 	$coords[7] = MIDDLE + 10 * ($shape_c + $width / 2.0);
 	$coords[8] = $coords[0];
 	$coords[9] = $coords[1];
-	$canvas->get_data ('outline')->set (points => \@coords);
+	$canvas->{outline}->set (points => \@coords);
 
 	# Drag boxes
 
-	move_drag_box ($canvas->get_data ("width_drag_box"),
+	move_drag_box ($canvas->{width_drag_box},
 		       LEFT,
 		       MIDDLE - 10 * $width / 2.0);
 
-	move_drag_box ($canvas->get_data ("shape_a_drag_box"),
+	move_drag_box ($canvas->{shape_a_drag_box},
 		       RIGHT - 10 * $shape_a,
 		       MIDDLE);
 
-	move_drag_box ($canvas->get_data ("shape_b_c_drag_box"),
+	move_drag_box ($canvas->{shape_b_c_drag_box},
 		       RIGHT - 10 * $shape_b,
 		       MIDDLE - 10 * ($shape_c + $width / 2.0));
 
@@ -118,25 +118,25 @@ sub set_arrow_shape {
 
 	# Info
 
-	$canvas->get_data ("width_info")->set (text => "width: $width");
-	$canvas->get_data ("shape_a_info")->set (text => "arrow_shape_a: $shape_a");
-	$canvas->get_data ("shape_b_info")->set (text => "arrow_shape_b: $shape_b");
-	$canvas->get_data ("shape_c_info")->set (text => "arrow_shape_c: $shape_c");
+	$canvas->{width_info}->set (text => "width: $width");
+	$canvas->{shape_a_info}->set (text => "arrow_shape_a: $shape_a");
+	$canvas->{shape_b_info}->set (text => "arrow_shape_b: $shape_b");
+	$canvas->{shape_c_info}->set (text => "arrow_shape_c: $shape_c");
 
 	# Sample arrows
 
-	$canvas->get_data ("sample_1")->set (width_pixels => $width,
-					     arrow_shape_a => $shape_a,
-					     arrow_shape_b => $shape_b,
-					     arrow_shape_c => $shape_c);
-	$canvas->get_data ("sample_2")->set (width_pixels => $width,
-					     arrow_shape_a => $shape_a,
-					     arrow_shape_b => $shape_b,
-					     arrow_shape_c => $shape_c);
-	$canvas->get_data ("sample_3")->set (width_pixels => $width,
-					     arrow_shape_a => $shape_a,
-					     arrow_shape_b => $shape_b,
-					     arrow_shape_c => $shape_c);
+	$canvas->{sample_1}->set (width_pixels => $width,
+	                          arrow_shape_a => $shape_a,
+	                          arrow_shape_b => $shape_b,
+	                          arrow_shape_c => $shape_c);
+	$canvas->{sample_2}->set (width_pixels => $width,
+	                          arrow_shape_a => $shape_a,
+	                          arrow_shape_b => $shape_b,
+	                          arrow_shape_c => $shape_c);
+	$canvas->{sample_3}->set (width_pixels => $width,
+	                          arrow_shape_a => $shape_a,
+	                          arrow_shape_b => $shape_b,
+	                          arrow_shape_c => $shape_c);
 }
 
 sub highlight_box {
@@ -174,7 +174,7 @@ sub create_drag_box {
 	$box->signal_connect (event => \&highlight_box);
 	$box->signal_connect (event => $callback);
 
-	$root->canvas->set_data ($box_name, $box);
+	$root->canvas->{$box_name} = $box;
 }
 
 sub width_event {
@@ -193,7 +193,7 @@ sub width_event {
 	return FALSE
 		if $width < 0;
 
-	$item->canvas->set_data (width => $width);
+	$item->canvas->{width} = $width;
 	set_arrow_shape ($item->canvas);
 
 	return FALSE;
@@ -209,7 +209,7 @@ sub shape_a_event {
 	my $shape_a = (RIGHT - $event->x) / 10;
 	return FALSE if (($shape_a < 0) || ($shape_a > 30));
 
-	$item->canvas->set_data (shape_a => $shape_a);
+	$item->canvas->{shape_a} = $shape_a;
 	set_arrow_shape ($item->canvas);
 
 	return FALSE;
@@ -228,14 +228,14 @@ sub shape_b_c_event {
 
 	my $shape_b = (RIGHT - $event->x) / 10;
 	if (($shape_b >= 0) && ($shape_b <= 30)) {
-		$item->canvas->set_data (shape_b => $shape_b);
+		$item->canvas->{shape_b} = $shape_b;
 		$change = TRUE;
 	}
 
-	my $width = $item->canvas->get_data ('width');
+	my $width = $item->canvas->{width};
 	my $shape_c = ((MIDDLE - 5 * $width) - $event->y) / 10;
 	if ($shape_c >= 0) {
-		$item->canvas->set_data (shape_c => $shape_c);
+		$item->canvas->{shape_c} = $shape_c;
 		$change = TRUE;
 	}
 
@@ -255,15 +255,13 @@ sub create_dimension {
 					      arrow_shape_a => 5.0,
 					      arrow_shape_b => 5.0,
 					      arrow_shape_c => 3.0);
-	$root->canvas->set_data ($arrow_name, $item);
+	$root->canvas->{$arrow_name} = $item;
 
-##	$item = Gnome2::Canvas::Item->new ($root, 'Gnome2::Canvas::Text',
-	my $item2 = Gnome2::Canvas::Item->new ($root, 'Gnome2::Canvas::Text',
+	$item = Gnome2::Canvas::Item->new ($root, 'Gnome2::Canvas::Text',
 					   fill_color => 'black',
 					   font => 'Sans 12',
 					   anchor => $anchor);
-##	$root->canvas->set_data ($text_name, $item);
-	$root->canvas->set_data ($text_name, $item2);
+	$root->canvas->{$text_name} = $item;
 }
 
 sub create_info {
@@ -274,7 +272,7 @@ sub create_info {
 					      fill_color => 'black',
 					      font => 'Sans 14',
 					      anchor => 'GTK_ANCHOR_NW');
-	$root->canvas->set_data ($info_name, $item);
+	$root->canvas->{$info_name} = $item;
 }
 
 sub create_sample_arrow {
@@ -285,7 +283,7 @@ sub create_sample_arrow {
 					      fill_color => 'black',
 					      first_arrowhead => TRUE,
 					      last_arrowhead => TRUE);
-	$root->canvas->set_data ($sample_name, $item);
+	$root->canvas->{$sample_name} = $item;
 }
 
 sub create {
@@ -316,10 +314,10 @@ sub create {
 
 	my $root = $canvas->root;
 
-	$canvas->set_data (width   => DEFAULT_WIDTH);
-	$canvas->set_data (shape_a => DEFAULT_SHAPE_A);
-	$canvas->set_data (shape_b => DEFAULT_SHAPE_B);
-	$canvas->set_data (shape_c => DEFAULT_SHAPE_C);
+	$canvas->{width} = DEFAULT_WIDTH;
+	$canvas->{shape_a} = DEFAULT_SHAPE_A;
+	$canvas->{shape_b} = DEFAULT_SHAPE_B;
+	$canvas->{shape_c} = DEFAULT_SHAPE_C;
 
 	# Big arrow
 
@@ -329,7 +327,7 @@ sub create {
 				      fill_color => 'mediumseagreen',
 				      width_pixels => DEFAULT_WIDTH * 10,
 				      last_arrowhead => TRUE);
-	$canvas->set_data (big_arrow => $item);
+	$canvas->{big_arrow} = $item;
 
 	# Arrow outline
 
@@ -338,7 +336,7 @@ sub create {
 				      width_pixels => 2,
 				      cap_style => 'round',
 				      join_style => 'round');
-	$canvas->set_data (outline => $item);
+	$canvas->{outline} = $item;
 
 	# Drag boxes
 

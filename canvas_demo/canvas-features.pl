@@ -18,8 +18,8 @@ sub item_event {
 	return FALSE
 		if ($event->type ne 'button-press') || ($event->button != 1);
 
-	my $parent1 = $item->get_data ("parent1");
-	my $parent2 = $item->get_data ("parent2");
+	my $parent1 = $item->{parent1};
+	my $parent2 = $item->{parent2};
 
 	$item->reparent ($item->parent == $parent1 ? $parent2 : $parent1);
 
@@ -93,8 +93,8 @@ sub create {
 					      outline_color => 'black',
 					      fill_color => 'mediumseagreen',
 					      width_units => 3.0);
-	$item->set_data (parent1 => $parent1);
-	$item->set_data (parent2 => $parent2);
+	$item->{parent1} = $parent1;
+	$item->{parent2} = $parent2;
 	$item->signal_connect (event => \&item_event);
 
 	# A group to be reparented
@@ -119,8 +119,8 @@ sub create {
 				   y2 => 25.0,
 				   fill_color => 'steelblue');
 
-	$group->set_data (parent1 => $parent1);
-	$group->set_data (parent2 => $parent2);
+	$group->{parent1} = $parent1;
+	$group->{parent2} = $parent2;
 	$group->signal_connect (event => \&item_event);
 
 	# Done

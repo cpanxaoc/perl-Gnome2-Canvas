@@ -1,3 +1,10 @@
+2004/04/07 00:35 (-0500) muppetman
+
+	* Canvas.pm, xs/GnomeCanvas.xs: move pod from Canvas.pm to
+	xs/GnomeCanvas.xs, and beef it up.  use the description text from
+	libgnomecanvas' gtk-doc.  assume the reader doesn't care that this
+	is a binding and just wants to know about the perl object.
+
 2004/02/26 17:37 (-0500) muppetman
 
 	* README: fix the spelling of license; update the sandbox instructions.

@@ -33,7 +33,7 @@
 #endif /* not defined GNOME_TYPE_CANVAS_PATH_DEF */
 
 #include "gnomecanvasperl-autogen.h"
-
+#include "gnomecanvasperl-version.h"
 
 /* special handling for libart affine transform arrays */
 SV * newSVArtAffine (double affine[6]);

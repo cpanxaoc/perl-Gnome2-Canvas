@@ -51,10 +51,17 @@ mkdir 'build', 0777;
 #
 Gtk2::CodeGen->parse_maps ('gnomecanvasperl');
 Gtk2::CodeGen->write_boot (ignore => '^Gnome2::Canvas$');
+ExtUtils::PkgConfig->write_version_macros ("build/gnomecanvasperl-version.h",
+                                           'libgnomecanvas-2.0' => 'GNOME_CANVAS');
 
 our @xs_files = <xs/*.xs>;
 our %pm_files = ('Canvas.pm' => '$(INST_LIBDIR)/Canvas.pm',);
 our %pod_files = Glib::MakeHelper->do_pod_files (@xs_files);
+our @typemaps = qw(canvas.typemap build/gnomecanvasperl.typemap);
+our @headers = qw(gnomecanvasperl.h
+                  build/gnomecanvasperl-autogen.h
+                  build/gnomecanvasperl-version.h);
+
 
 # now we're ready to start creating the makefile.
 # we need to use ExtUtils::Depends to get relevant information out of
@@ -65,11 +72,11 @@ my $gnomecanvas = ExtUtils::Depends->new ('Gnome2::Canvas', 'Gtk2');
 $gnomecanvas->set_inc ($pkgcfg{cflags});
 $gnomecanvas->set_libs ($pkgcfg{libs});
 $gnomecanvas->add_xs (@xs_files);
-$gnomecanvas->add_pm ('Canvas.pm' => '$(INST_LIBDIR)/Canvas.pm');
+$gnomecanvas->add_pm (%pm_files);
 my $cwd = cwd();
-$gnomecanvas->add_typemaps (map {File::Spec->catfile($cwd,$_)} 'canvas.typemap', 'build/gnomecanvasperl.typemap');
+$gnomecanvas->add_typemaps (map {File::Spec->catfile($cwd,$_)} @typemaps);
 
-$gnomecanvas->install (qw(gnomecanvasperl.h build/gnomecanvasperl-autogen.h));
+$gnomecanvas->install (@headers);
 $gnomecanvas->save_config ('build/IFiles.pm');
 
 WriteMakefile(

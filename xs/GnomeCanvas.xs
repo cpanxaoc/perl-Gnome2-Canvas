@@ -475,3 +475,28 @@ GdkRgbDither
 gnome_canvas_get_dither (canvas)
 	GnomeCanvas *canvas
 
+
+=for object Gnome2::Canvas::version
+=cut
+
+=for apidoc
+=for signature (major_version, minor_version, micro_version) = Gnome2::Canvas->GET_VERSION_INFO
+=cut
+void
+GET_VERSION_INFO (class)
+    PPCODE:
+	EXTEND (SP, 3);
+	PUSHs (sv_2mortal (newSViv (GNOME_CANVAS_MAJOR_VERSION)));
+	PUSHs (sv_2mortal (newSViv (GNOME_CANVAS_MINOR_VERSION)));
+	PUSHs (sv_2mortal (newSViv (GNOME_CANVAS_MICRO_VERSION)));
+
+gboolean
+CHECK_VERSION (class, major, minor, micro)
+	int major
+	int minor
+	int micro
+    CODE:
+	RETVAL = GNOME_CANVAS_CHECK_VERSION (major, minor, micro);
+    OUTPUT:
+	RETVAL
+

@@ -5,6 +5,7 @@
 use 5.008;
 use ExtUtils::MakeMaker;
 use Cwd;
+use File::Spec;
 use ExtUtils::Depends;
 use Glib::PkgConfig;
 use Gtk2::CodeGen;
@@ -29,7 +30,8 @@ $gnome2->set_inc ($pkgcfg{cflags});
 $gnome2->set_libs ($pkgcfg{libs});
 $gnome2->add_xs (<xs/*.xs>);
 $gnome2->add_pm ('Canvas.pm' => '$(INST_LIBDIR)/Canvas.pm');
-$gnome2->add_typemaps (map {cwd().'/'.$_} 'canvas.typemap', 'build/gnomecanvasperl.typemap');
+my $cwd = cwd();
+$gnome2->add_typemaps (map {File::Spec->catfile($cwd,$_)} 'canvas.typemap', 'build/gnomecanvasperl.typemap');
 $gnome2->add_headers ('gnomecanvasperl.h');
 
 $gnome2->install (qw(gnomecanvasperl.h build/gnomecanvasperl-autogen.h));

@@ -29,9 +29,10 @@ members (item)
 	canvas = 1
 	parent = 2
     CODE:
+	RETVAL = NULL;
 	switch (ix) {
-		case 1: RETVAL = newSVGnomeCanvas (item->canvas); break;
-		case 2: RETVAL = newSVGnomeCanvasGroup_ornull (item->parent); break;
+	    case 1: RETVAL = newSVGnomeCanvas (item->canvas); break;
+	    case 2: RETVAL = newSVGnomeCanvasGroup_ornull (item->parent); break;
 	}
     OUTPUT:
 	RETVAL

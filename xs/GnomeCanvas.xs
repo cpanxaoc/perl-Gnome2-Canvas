@@ -119,6 +119,7 @@ members (canvas)
 	pixels_per_unit = 1
 	get_pixels_per_unit = 2
     CODE:
+	RETVAL = NULL;
 	switch (ix) {
 	    case 0: RETVAL = newSViv (canvas->aa); break;
 	    case 1:
@@ -227,6 +228,8 @@ void gnome_canvas_w2c_d (GnomeCanvas *canvas, double wx, double wy, OUTLIST doub
     ALIAS:
 	Gnome2::Canvas::w2c = 1
 	Gnome2::Canvas::w2c_d = 2
+    CLEANUP:
+	PERL_UNUSED_VAR (ix);
 
 
 ##  void gnome_canvas_c2w (GnomeCanvas *canvas, int cx, int cy, double *wx, double *wy) 

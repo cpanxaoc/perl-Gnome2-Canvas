@@ -4,7 +4,8 @@
 	* canvas.typemap: use T_GPERL_GENERIC_WRAPPER
 	* Makefile.PL: require Glib 0.97 (because of the new typemap stuff);
 	update the build to do prereqs properly
-	* TODO: updated 
+	* TODO, MANIFEST: updated 
+	* MANIFEST.SKIP: new
 	* canvas_demo/canvas-primitives.pl, xs/GnomeCanvasPathDef.xs:
 	commentary
 

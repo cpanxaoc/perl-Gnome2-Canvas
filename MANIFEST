@@ -11,11 +11,17 @@ canvas_demo/toroid.png
 Canvas.pm
 canvas.typemap
 ChangeLog
+debian/changelog
+debian/compat
+debian/control
+debian/copyright
+debian/rules
 genmaps.pl
 gnomecanvasperl.h
 LICENSE
 Makefile.PL
 MANIFEST
+MANIFEST.SKIP
 maps
 README
 t/01.t

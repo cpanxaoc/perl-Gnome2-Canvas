@@ -8,11 +8,11 @@ use ExtUtils::MakeMaker;
 use Cwd;
 use File::Spec;
 
-# minimum required version of dependancies we need to build
+# minimum required version of dependencies we need to build
 our %build_reqs = (
-	'perl-ExtUtils-Depends'   => '0.1',
+	'perl-ExtUtils-Depends'   => '0.200',
 	'perl-ExtUtils-PkgConfig' => '0.1',
-	'perl-Glib'               => '1.020', # we need Glib::MakeHelper
+	'perl-Glib'               => '1.035',
 	'perl-Gtk2'               => '1.00',
 	'GnomeCanvas'             => '2.0.0',
 );
@@ -66,17 +66,16 @@ our %pod_files = (
 # the Glib extension, and to save config information for other modules which
 # will chain from this one.
 
-my $gnome2 = ExtUtils::Depends->new ('Gnome2::Canvas', 'Gtk2', 'Glib');
-$gnome2->set_inc ($pkgcfg{cflags});
-$gnome2->set_libs ($pkgcfg{libs});
-$gnome2->add_xs (<xs/*.xs>);
-$gnome2->add_pm ('Canvas.pm' => '$(INST_LIBDIR)/Canvas.pm');
+my $gnomecanvas = ExtUtils::Depends->new ('Gnome2::Canvas', 'Gtk2');
+$gnomecanvas->set_inc ($pkgcfg{cflags});
+$gnomecanvas->set_libs ($pkgcfg{libs});
+$gnomecanvas->add_xs (@xs_files);
+$gnomecanvas->add_pm ('Canvas.pm' => '$(INST_LIBDIR)/Canvas.pm');
 my $cwd = cwd();
-$gnome2->add_typemaps (map {File::Spec->catfile($cwd,$_)} 'canvas.typemap', 'build/gnomecanvasperl.typemap');
-$gnome2->add_headers ('gnomecanvasperl.h');
+$gnomecanvas->add_typemaps (map {File::Spec->catfile($cwd,$_)} 'canvas.typemap', 'build/gnomecanvasperl.typemap');
 
-$gnome2->install (qw(gnomecanvasperl.h build/gnomecanvasperl-autogen.h));
-$gnome2->save_config ('build/IFiles.pm');
+$gnomecanvas->install (qw(gnomecanvasperl.h build/gnomecanvasperl-autogen.h));
+$gnomecanvas->save_config ('build/IFiles.pm');
 
 WriteMakefile(
     NAME            => 'Gnome2::Canvas',
@@ -84,16 +83,17 @@ WriteMakefile(
     ABSTRACT        => 'Perl bindings for the 2.x series of the Gnome Canvas widget',
     XSPROTOARG      => '-noprototypes',
     MAN3PODS        => \%pod_files,
-    $gnome2->get_makefile_vars,
+    $gnomecanvas->get_makefile_vars,
 );
 
-package MY;
 
-sub postamble
-{
+sub MY::postamble {
 	chomp (my $date = `date +"%a %b %d %Y"`);
 	return Glib::MakeHelper->postamble_clean ()
-	     . Glib::MakeHelper->postamble_docs (@main::xs_files)
+	     . Glib::MakeHelper->postamble_docs_full (
+	         DEPENDS => $gnomecanvas,
+		 COPYRIGHT => "Copyright (C) 2003-2004 by the Gtk2-Perl Team.\n\nThis software is licensed under the LGPL; see L<Gnome2::Canvas> for a full notice.",
+	       )
 	     . Glib::MakeHelper->postamble_rpms (
 		'GNOME_CANVAS' => $build_reqs{'GnomeCanvas'},
 		'PERL_EXTUTILS_DEPENDS' => 
@@ -102,7 +102,6 @@ sub postamble
 			$build_reqs{'perl-ExtUtils-PkgConfig'},
 		'PERL_GLIB' => $build_reqs{'perl-Glib'},
 		'PERL_GTK' => $build_reqs{'perl-Gtk2'},
-		($Glib::VERSION > 1.020 ? () : (DATE => $date))
+		'DATE' => $date,
 	       );
 }
-package MAIN;

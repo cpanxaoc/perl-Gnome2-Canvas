@@ -17,11 +17,6 @@ our %build_reqs = (
 	'GnomeCanvas'             => '2.0.0',
 );
 
-# minimum required version of dependancies we need to run
-our %runtime_reqs = (
-	'GnomeCanvas' => undef,
-);
-
 # Writing a fake Makefile ensures that CPAN will pick up the correct
 # dependencies and install them.
 unless (eval "use ExtUtils::Depends;"
@@ -48,8 +43,6 @@ unless (eval "use ExtUtils::Depends;"
 
 my %pkgcfg = ExtUtils::PkgConfig->find ('libgnomecanvas-2.0 >= '
 				       . $build_reqs{GnomeCanvas});
-
-$runtime_reqs{GnomeCanvas} = $pkgcfg{modversion};
 
 mkdir 'build', 0777;
 
@@ -102,7 +95,6 @@ sub postamble
 	return Glib::MakeHelper->postamble_clean ()
 	     . Glib::MakeHelper->postamble_docs (@main::xs_files)
 	     . Glib::MakeHelper->postamble_rpms (
-		'GNOME_CANVAS_RUN' => $runtime_reqs{'GnomeCanvas'},
 		'GNOME_CANVAS' => $build_reqs{'GnomeCanvas'},
 		'PERL_EXTUTILS_DEPENDS' => 
 			$build_reqs{'perl-ExtUtils-Depends'},

@@ -8,13 +8,14 @@ Group: Development/Libraries
 URL: http://search.cpan.org/dist/Gnome2-Canvas/
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires: perl >= 2:5.8.0
-BuildRequires: libgnomecanvas-devel >= 2.2.0.2
-BuildRequires: perl-ExtUtils-Depends >= 0.103
-BuildRequires: perl-Glib >= 0.97
-BuildRequires: perl-Gtk2 >= 0.97
-Requires: libgnomecanvas >= 2.2.0.2
-Requires: perl-Glib >= 0.97
-Requires: perl-Gtk2 >= 0.97
+BuildRequires: libgnomecanvas-devel >= @GNOME_CANVAS@
+BuildRequires: perl-ExtUtils-Depends >= @PERL_EXTUTILS_DEPENDS@
+BuildRequires: perl-ExtUtils-PkgConfig >= @PERL_EXTUTILS_DEPENDS@
+BuildRequires: perl-Glib >= @PERL_GLIB@
+BuildRequires: perl-Gtk2 >= @PERL_GTK@
+Requires: libgnomecanvas >= @GNOMECANVAS_RUN@
+Requires: perl-Glib >= @PERL_GLIB@
+Requires: perl-Gtk2 >= @PERL_GTK@
 Requires: %(perl -MConfig -le 'if (defined $Config{useithreads}) { print "perl(:WITH_ITHREADS)" } else { print "perl(:WITHOUT_ITHREADS)" }')
 Requires: %(perl -MConfig -le 'if (defined $Config{usethreads}) { print "perl(:WITH_THREADS)" } else { print "perl(:WITHOUT_THREADS)" }')
 Requires: %(perl -MConfig -le 'if (defined $Config{uselargefiles}) { print "perl(:WITH_LARGEFILES)" } else { print "perl(:WITHOUT_LARGEFILES)" }')

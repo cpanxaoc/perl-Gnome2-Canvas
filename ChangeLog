@@ -1,3 +1,8 @@
+2003/09/16 23:50 rwmcfa1
+
+	* Makefile.PL, perl-*spec.in: somewhat automated versioning system 
+	implemented for depenancy modules
+
 2003/09/15 22:26 rwmcfa1
 
 	* Makefile.PL: spec file dependancies improved

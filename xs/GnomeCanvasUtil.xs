@@ -153,6 +153,11 @@ gnome_canvas_get_butt_points (class, x1, y1, x2, y2, width, project)
 	PUSHs (sv_2mortal (newSVnv (by2)));
 
 ##  double gnome_canvas_polygon_to_point (double *poly, int num_points, double x, double y) 
+=for apidoc
+=for arg poly_ref (arrayref) coordinate pairs that make up the polygon
+Return the distance from the point I<$x>,I<$y> to the polygon described by
+the vertices in I<$poly_ref>, or zero if the point is inside the polygon.
+=cut
 double
 gnome_canvas_polygon_to_point (class, poly_ref, x, y)
 	SV *poly_ref
@@ -218,6 +223,9 @@ gnome_canvas_polygon_to_point (class, poly_ref, x, y)
 MODULE = Gnome2::Canvas::Util	PACKAGE = Gnome2::Canvas::Item	PREFIX = gnome_canvas_item_
 
 ##  void gnome_canvas_item_reset_bounds (GnomeCanvasItem *item) 
+=for apidoc
+Reset the bounding box of I<$item> to an empty rectangle.
+=cut
 void
 gnome_canvas_item_reset_bounds (item)
 	GnomeCanvasItem *item
@@ -246,6 +254,9 @@ gnome_canvas_item_reset_bounds (item)
 MODULE = Gnome2::Canvas::Util	PACKAGE = Gnome2::Canvas::Item	PREFIX = gnome_canvas_
 
 ##  void gnome_canvas_update_bbox (GnomeCanvasItem *item, int x1, int y1, int x2, int y2) 
+=for apidoc
+Set I<$item>'s bounding box to a new rectangle, and request a full repaint.
+=cut
 void
 gnome_canvas_update_bbox (item, x1, y1, x2, y2)
 	GnomeCanvasItem *item

@@ -1,3 +1,7 @@
+2004/08/15 22:01 (-0400) muppetman
+
+	* xs/GnomeCanvasUtil.xs: minor doc updates.
+
 2004/08/15 19:37 (-0400) muppetman
 
 	* xs/GnomeCanvasUtil.xs: fixed mysterious failure on darwin of

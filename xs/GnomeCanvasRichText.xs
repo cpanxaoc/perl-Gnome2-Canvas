@@ -63,7 +63,7 @@ gnome_canvas_rich_text_get_iter_location (text, iter)
 	
 
 ##  void gnome_canvas_rich_text_get_iter_at_location (GnomeCanvasRichText *text, GtkTextIter *iter, gint x, gint y) 
-GtkTextIter_own *
+GtkTextIter_copy *
 gnome_canvas_rich_text_get_iter_at_location (text, x, y)
 	GnomeCanvasRichText *text
 	gint x

@@ -1,3 +1,23 @@
+2003/12/05 00:14 (-0500) muppetman
+
+	stuff from kaffee, who is working on a test suite.
+
+	A xs/GnomeCanvasShape.xs
+	* MANIFEST: added new file for GnomeCanvasShape's functions
+
+	* canvas.typemap: typemap for const GnomeCanvasPathDef*
+
+	* xs/GnomeCanvas.xs: remove =for object Gnome2::Canvas::Shape, it has
+	its own xs file.  fix b0rken call signature for $canvas->get_color,
+	which was requiring a returned parameter.
+
+	* xs/GnomeCanvasItem.xs: use actual typemaps for some enum/flags types
+	instead of plain integers.
+
+	* xs/GnomeCanvasPathDef.xs: implement a bunch of missing pathdef methods.
+
+	* xs/GnomeCanvasRichText.xs: don't leak.
+
 2003/11/13 23:58 (-0500) muppetman
 
 	* Makefile.PL, README, Canvas.pm: bump version to 0.34.

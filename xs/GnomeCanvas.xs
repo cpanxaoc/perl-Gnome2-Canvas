@@ -75,10 +75,6 @@ BOOT:
 # sections for them here, so they'll show up in the documentation.
 #
 
-=for object Gnome2::Canvas::Shape - Base class for canvas shapes
-
-=cut
-
 =for object Gnome2::Canvas::Line - Lines as CanvasItems
 
 =cut
@@ -239,12 +235,25 @@ void gnome_canvas_window_to_world (GnomeCanvas *canvas, double winx, double winy
 ##  void gnome_canvas_world_to_window (GnomeCanvas *canvas, double worldx, double worldy, double *winx, double *winy) 
 void gnome_canvas_world_to_window (GnomeCanvas *canvas, double worldx, double worldy, OUTLIST double winx, OUTLIST double winy) 
 
+=for apidoc
+
+Returns an integer indicating the success of the color allocation and a
+GdkColor.
+
+=cut
 ##  int gnome_canvas_get_color (GnomeCanvas *canvas, const char *spec, GdkColor *color) 
-int
-gnome_canvas_get_color (canvas, spec, color)
+void
+gnome_canvas_get_color (canvas, spec)
 	GnomeCanvas *canvas
 	const char *spec
-	GdkColor *color
+    PREINIT:
+	int result;
+	GdkColor color;
+    PPCODE:
+	result = gnome_canvas_get_color (canvas, spec, &color);
+	EXTEND (sp, 2);
+	PUSHs (sv_2mortal (newSViv (result)));
+	PUSHs (sv_2mortal (newSVGdkColor (&color)));
 
 ##  gulong gnome_canvas_get_color_pixel (GnomeCanvas *canvas, guint rgba) 
 gulong

@@ -132,10 +132,10 @@ gnome_canvas_item_hide (item)
 	GnomeCanvasItem *item
 
 ##  int gnome_canvas_item_grab (GnomeCanvasItem *item, unsigned int event_mask, GdkCursor *cursor, guint32 etime) 
-int
+GdkGrabStatus
 gnome_canvas_item_grab (item, event_mask, cursor, etime=GDK_CURRENT_TIME)
 	GnomeCanvasItem *item
-	unsigned int event_mask
+	GdkEventMask event_mask
 	GdkCursor *cursor
 	guint32 etime
 

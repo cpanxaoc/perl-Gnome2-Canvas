@@ -43,13 +43,13 @@ gnome_canvas_path_def_new (class)
     C_ARGS:
 	/*void*/
 
-####  GnomeCanvasPathDef * gnome_canvas_path_def_new_sized (gint length) 
-##GnomeCanvasPathDef_own *
-##gnome_canvas_path_def_new_sized (class, length)
-##	gint length
-##    C_ARGS:
-##	length
-##
+##  GnomeCanvasPathDef * gnome_canvas_path_def_new_sized (gint length) 
+GnomeCanvasPathDef_own *
+gnome_canvas_path_def_new_sized (class, length)
+	gint length
+    C_ARGS:
+	length
+
 ####  GnomeCanvasPathDef * gnome_canvas_path_def_new_from_bpath (ArtBpath * bpath) 
 ##GnomeCanvasPathDef *
 ##gnome_canvas_path_def_new_from_bpath (bpath)
@@ -70,12 +70,12 @@ void
 gnome_canvas_path_def_finish (path)
 	GnomeCanvasPathDef * path
 
-####  void gnome_canvas_path_def_ensure_space (GnomeCanvasPathDef * path, gint space) 
-##void
-##gnome_canvas_path_def_ensure_space (path, space)
-##	GnomeCanvasPathDef * path
-##	gint space
-##
+##  void gnome_canvas_path_def_ensure_space (GnomeCanvasPathDef * path, gint space) 
+void
+gnome_canvas_path_def_ensure_space (path, space)
+	GnomeCanvasPathDef * path
+	gint space
+
 ####  void gnome_canvas_path_def_copy (GnomeCanvasPathDef * dst, const GnomeCanvasPathDef * src) 
 ##void
 ##gnome_canvas_path_def_copy (dst, src)
@@ -89,7 +89,7 @@ gnome_canvas_path_def_duplicate (path)
 
 ##  GnomeCanvasPathDef * gnome_canvas_path_def_concat (const GSList * list) 
 GnomeCanvasPathDef_own *
-gnome_canvas_path_def_concat (class)
+gnome_canvas_path_def_concat (class, ...)
     PREINIT:
 	GSList * list = NULL;
 	int i;
@@ -115,26 +115,26 @@ gnome_canvas_path_def_split (path)
 	g_slist_free (list);
 	
 
-####  GnomeCanvasPathDef * gnome_canvas_path_def_open_parts (const GnomeCanvasPathDef * path) 
-##GnomeCanvasPathDef *
-##gnome_canvas_path_def_open_parts (path)
-##	const GnomeCanvasPathDef * path
-##
-####  GnomeCanvasPathDef * gnome_canvas_path_def_closed_parts (const GnomeCanvasPathDef * path) 
-##GnomeCanvasPathDef *
-##gnome_canvas_path_def_closed_parts (path)
-##	const GnomeCanvasPathDef * path
-##
-####  GnomeCanvasPathDef * gnome_canvas_path_def_close_all (const GnomeCanvasPathDef * path) 
-##GnomeCanvasPathDef *
-##gnome_canvas_path_def_close_all (path)
-##	const GnomeCanvasPathDef * path
-##
-##
-####  void gnome_canvas_path_def_reset (GnomeCanvasPathDef * path) 
-##void
-##gnome_canvas_path_def_reset (path)
-##	GnomeCanvasPathDef * path
+##  GnomeCanvasPathDef * gnome_canvas_path_def_open_parts (const GnomeCanvasPathDef * path) 
+GnomeCanvasPathDef *
+gnome_canvas_path_def_open_parts (path)
+	const GnomeCanvasPathDef * path
+
+##  GnomeCanvasPathDef * gnome_canvas_path_def_closed_parts (const GnomeCanvasPathDef * path) 
+GnomeCanvasPathDef *
+gnome_canvas_path_def_closed_parts (path)
+	const GnomeCanvasPathDef * path
+
+##  GnomeCanvasPathDef * gnome_canvas_path_def_close_all (const GnomeCanvasPathDef * path) 
+GnomeCanvasPathDef *
+gnome_canvas_path_def_close_all (path)
+	const GnomeCanvasPathDef * path
+
+
+##  void gnome_canvas_path_def_reset (GnomeCanvasPathDef * path) 
+void
+gnome_canvas_path_def_reset (path)
+	GnomeCanvasPathDef * path
 
 ##  void gnome_canvas_path_def_moveto (GnomeCanvasPathDef * path, gdouble x, gdouble y) 
 void

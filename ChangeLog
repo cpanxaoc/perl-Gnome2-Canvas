@@ -1,3 +1,7 @@
+2004/02/26 17:37 (-0500) muppetman
+
+	* README: fix the spelling of license; update the sandbox instructions.
+
 2004/02/12 19:00 (-0500) muppetman
 
 	* Canvas.pm, Makefile.PL, README, NEWS: unstable release 0.92

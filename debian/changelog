@@ -1,0 +1,13 @@
+libgnome2-canvas-perl (0.28-2) unstable; urgency=low
+
+  * Updated to latest CVS.
+  * Fixed some packaging issues.
+
+ -- James Curbo <hannibal@adtrw.org>  Sun, 10 Aug 2003 18:19:36 -0500
+
+libgnome2-canvas-perl (0.28-1) unstable; urgency=low
+
+  * Initial Release.
+
+ -- James Curbo <hannibal@adtrw.org>  Wed,  6 Aug 2003 18:39:37 -0500
+

@@ -1,3 +1,11 @@
+2003/06/27 17:00 muppetman
+
+	* Makefile.PL, canvas_demo/canvas_arrowhead.pl,
+	canvas_demo/canvas-features.pl:  require latest Gtk2 and Glib,
+	which treat objects as hashes.
+
+	* canvas_demo/canvas-curve.pl: mark known crash.
+
 2003/06/20 12:00 muppetman
 
 	* Canvas.pm Makefile.PL README: bump version info and prepare for

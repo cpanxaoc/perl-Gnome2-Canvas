@@ -1,3 +1,8 @@
+2004/02/10 01:43 (-0500) muppetman
+
+	* xs/GnomeCanvasItem.xs, xs/GnomeCanvasPathDef.xs,
+	xs/GnomeCanvasUtil.xs: pod updates
+
 2004/01/29 19:22 (-0500) rwmcfa1
 
 	* Canvas.pm, README: beta release 0.91

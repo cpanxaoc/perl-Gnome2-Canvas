@@ -111,23 +111,14 @@ BOOT:
 
 =cut
 
-SV *
-members (canvas)
-	GnomeCanvas * canvas
-    ALIAS:
-	aa = 0
-	pixels_per_unit = 1
-	get_pixels_per_unit = 2
-    CODE:
-	RETVAL = NULL;
-	switch (ix) {
-	    case 0: RETVAL = newSViv (canvas->aa); break;
-	    case 1:
-	    case 2: RETVAL = newSVnv (canvas->pixels_per_unit); break;
-	}
-    OUTPUT:
-	RETVAL
 
+=for apidoc new_aa
+Create a new empty canvas in antialiased mode.
+=cut
+
+=for apidoc
+Create a new empty canvas in non-antialiased mode.
+=cut
 ##  GtkWidget *gnome_canvas_new (void) 
 ##  GtkWidget *gnome_canvas_new_aa (void) 
 GtkWidget *
@@ -146,6 +137,51 @@ gnome_canvas_new (class)
 GnomeCanvasGroup *
 gnome_canvas_root (canvas)
 	GnomeCanvas *canvas
+
+
+=for apidoc pixels_per_unit __hide__ 
+This is an alias for get_pixels_per_unit, but we won't clutter the docs
+with it.  We'll condone the get_pixels_per_unit/set_pixels_per_unit pair.
+=cut
+
+=for apidoc get_pixels_per_unit
+=for signature double = $canvas->get_pixels_per_unit
+Fetch I<$canvas>' scale factor.
+=cut
+
+=for apidoc
+=for signature boolean = $canvas->aa
+
+Returns true if I<$canvas> was created in anti-aliased mode.
+
+=cut
+SV *
+aa (canvas)
+	GnomeCanvas * canvas
+    ALIAS:
+	pixels_per_unit = 1
+	get_pixels_per_unit = 2
+    CODE:
+	RETVAL = NULL;
+	switch (ix) {
+	    case 0: RETVAL = newSViv (canvas->aa); break;
+	    case 1: /* fall through */
+	    case 2: RETVAL = newSVnv (canvas->pixels_per_unit); break;
+	}
+    OUTPUT:
+	RETVAL
+
+=for apidoc
+
+Set the zooming factor of I<$canvas> by specifying the number of screen
+pixels that correspond to one canvas unit.
+
+=cut
+##  void gnome_canvas_set_pixels_per_unit (GnomeCanvas *canvas, double n) 
+void
+gnome_canvas_set_pixels_per_unit (canvas, n)
+	GnomeCanvas *canvas
+	double n
 
 ##  void gnome_canvas_set_scroll_region (GnomeCanvas *canvas, double x1, double y1, double x2, double y2) 
 void
@@ -170,12 +206,6 @@ gnome_canvas_set_center_scroll_region (canvas, center_scroll_region)
 gboolean
 gnome_canvas_get_center_scroll_region (canvas)
 	GnomeCanvas *canvas
-
-##  void gnome_canvas_set_pixels_per_unit (GnomeCanvas *canvas, double n) 
-void
-gnome_canvas_set_pixels_per_unit (canvas, n)
-	GnomeCanvas *canvas
-	double n
 
 ##  void gnome_canvas_scroll_to (GnomeCanvas *canvas, int cx, int cy) 
 void
@@ -227,7 +257,6 @@ gnome_canvas_w2c_affine (canvas, a)
 void gnome_canvas_w2c_d (GnomeCanvas *canvas, double wx, double wy, OUTLIST double cx, OUTLIST double cy) 
     ALIAS:
 	Gnome2::Canvas::w2c = 1
-	Gnome2::Canvas::w2c_d = 2
     CLEANUP:
 	PERL_UNUSED_VAR (ix);
 

@@ -68,6 +68,48 @@ BOOT:
 #include "boot.xsh"
 	}
 
+#
+# there are several classes in the library which have no non-virtual
+# methods, and thus have no direct bindings.  let's declare object
+# sections for them here, so they'll show up in the documentation.
+#
+
+=for object Gnome2::Canvas::Shape - Base class for canvas shapes
+
+=cut
+
+=for object Gnome2::Canvas::Line - Lines as CanvasItems
+
+=cut
+
+=for object Gnome2::Canvas::Pixbuf - Pixbufs as CanvasItems
+
+=cut
+
+=for object Gnome2::Canvas::RE - base class for rectangles and ellipses
+
+=cut
+
+=for object Gnome2::Canvas::Rect - Rectangles as CanvasItems
+
+=cut
+
+=for object Gnome2::Canvas::Ellipse - Ellipses as CanvasItems
+
+=cut
+
+=for object Gnome2::Canvas::Widget - Gtk2::Widgets as CanvasItems
+
+=cut
+
+#
+# and now back to Gnome2::Canvas... but there's already a Gnome2::Canvas,
+# which will come from the pm file.  let's call this one Canvas_methods
+# to avoid name clashes.
+#
+
+=for object Gnome2::Canvas_methods
+=cut
 
 SV *
 members (canvas)

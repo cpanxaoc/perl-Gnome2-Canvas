@@ -10,29 +10,11 @@ use warnings;
 
 use Gtk2;
 
-require Exporter;
 require DynaLoader;
 
-our @ISA = qw(Exporter DynaLoader);
+our @ISA = qw(DynaLoader);
 
-# Items to export into callers namespace by default. Note: do not export
-# names by default without a very good reason. Use EXPORT_OK instead.
-# Do not simply export all your public functions/methods/constants.
-
-# This allows declaration	use Gnome2 ':all';
-# If you do not need this, moving things directly into @EXPORT or @EXPORT_OK
-# will save memory.
-our %EXPORT_TAGS = ( 'all' => [ qw(
-	
-) ] );
-
-our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
-
-our @EXPORT = qw(
-	
-);
-
-our $VERSION = '0.28';
+our $VERSION = '0.30';
 
 sub dl_load_flags { 0x01 }
 
@@ -51,33 +33,50 @@ Gnome2::Canvas - Perl interface to the Gnome Canvas
 =head1 SYNOPSIS
 
   use Gnome2::Canvas;
-  Gnome2::Program->init ($appname, $appversion);
-  my $app = Gnome2::App->new ($appname);
-  $app->show;
+  $win = Gtk2::Window->new;
+  $frame = Gtk2::Frame->new;
+  $canvas = Gnome2::Canvas->new;
+  $frame->add ($canvas);
+  $window->add ($frame);
+  $window->show_all;
+  
+  $root = $canvas->root;
+  $item = Gnome2::Canvas::Item->new ($root, 'Gnome2::Canvas::Text',
+                                     x => $x,
+                                     y => $y,
+                                     fill_color => 'black',
+                                     font => 'Sans 14',
+                                     anchor => 'GTK_ANCHOR_NW');
+  $box = Gnome2::Canvas::Item->new ($root, 'Gnome2::Canvas::Rect',
+                                    fill_color => undef,
+                                    outline_color => 'black',
+                                    width_pixels => 0);
+  $box->signal_connect (event => \&do_box_events);
+  
   Gtk2->main;
 
 =head1 ABSTRACT
 
-  Perl bindings to the 2.x series of the Gtk+ widget set.
-  This module allows you to write graphical user interfaces in a perlish
-  and object-oriented way, freeing you from the casting and memory 
-  management in C, yet remaining very close in spirit to original API.
+  Perl bindings to the 2.x series of the Gnome Canvas widget.
 
 =head1 DESCRIPTION
 
-The Gnome2 module allows a perl developer to use the Gnome libraries.
-Find out more about Gnome+ at http://www.gnome.org.
+The Gnome2::Canvas module allows a perl developer to use the Gnome Canvas.
+The Gnome Canvas is a high-level engine for structured graphics; see 
+Frederico Mena Quintero's whitepaper for more info:
+http://developer.gnome.org/doc/whitepapers/canvas/canvas.html
+
+Like the Gtk2 module on which it depends, Gnome2::Canvas follows the C API
+of libgnomecanvas-2.0 as closely as possible while still being perlish.
+Thus, the C API reference remains the canonical documentation.
 
 To discuss gtk2-perl, ask questions and flame/praise the authors,
 join gtk-perl-list@gnome.org at lists.gnome.org.
 
-If you have a web site set up for your module, mention it here.
-
-FIXME we have no other documentation, but we probably need it.
-
 =head1 SEE ALSO
 
-perl(1), Glib(1), Gtk2(1).
+perl(1), Glib(3pm), Gtk2(3pm), GNOME Canvas Library Reference Manual
+http://developer.gnome.org/doc/API/2.0/libgnomecanvas/index.html
 
 =head1 AUTHOR
 

@@ -1,20 +1,19 @@
 
-Gnome2::Canvas version 0.28
+Gnome2::Canvas version 0.30
 ===========================
 
 The Gnome2::Canvas module allows a perl developer to use the GnomeCanvas
 widget with Gtk2-Perl.  Find out more about Gnome+ at http://www.gnome.org.
 
-The perl bindings follow the C API very closely, and the C reference
-documentation should be considered the canonical source.
+Like the Gtk2 module on which it depends, Gnome2::Canvas follows the C API
+of libgnomecanvas-2.0 as closely as possible while still being perlish.
+Thus, the C API reference remains the canonical documentation.
 
 To discuss gtk2-perl, ask questions and flame/praise the authors,
 join gtk-perl-list@gnome.org at lists.gnome.org.
 
 Also have a look at the gtk2-perl website and sourceforge project page,
 http://gtk2-perl.sourceforge.net
-
-FIXME we have no other documentation, but we probably need it.
 
 
 INSTALLATION
@@ -52,8 +51,8 @@ DEPENDENCIES
 This module requires these other modules and libraries:
 
   perl >= 5.8.0
-  Glib >= 0.26 (perl module and requisite C libraries)
-  Gtk2 >= 0.26 (perl module and requisite C libraries)
+  Glib >= 0.97 (perl module and requisite C libraries)
+  Gtk2 >= 0.97 (perl module and requisite C libraries)
   libgnomecanvas > 2.x (C library)
 
 

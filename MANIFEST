@@ -18,6 +18,7 @@ Makefile.PL
 MANIFEST
 MANIFEST.SKIP
 maps
+perl-Gnome2-Canvas.spec.in
 README
 t/01.t
 TODO

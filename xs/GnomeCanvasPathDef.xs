@@ -66,11 +66,6 @@ gnome_canvas_path_def_new (class)
 ##GnomeCanvasPathDef *
 ##gnome_canvas_path_def_new_from_foreign_bpath (bpath)
 ##	ArtBpath * bpath
-##
-####  void gnome_canvas_path_def_ref (GnomeCanvasPathDef * path) 
-##void
-##gnome_canvas_path_def_ref (path)
-##	GnomeCanvasPathDef * path
 
 ##  void gnome_canvas_path_def_finish (GnomeCanvasPathDef * path) 
 void
@@ -138,10 +133,6 @@ gnome_canvas_path_def_split (path)
 ##gnome_canvas_path_def_close_all (path)
 ##	const GnomeCanvasPathDef * path
 ##
-####  void gnome_canvas_path_def_unref (GnomeCanvasPathDef * path) 
-##void
-##gnome_canvas_path_def_unref (path)
-##	GnomeCanvasPathDef * path
 ##
 ####  void gnome_canvas_path_def_reset (GnomeCanvasPathDef * path) 
 ##void
@@ -246,3 +237,6 @@ gboolean
 gnome_canvas_path_def_all_closed (path)
 	GnomeCanvasPathDef * path
 
+### will not be bound
+####  void gnome_canvas_path_def_ref (GnomeCanvasPathDef * path) 
+####  void gnome_canvas_path_def_unref (GnomeCanvasPathDef * path) 

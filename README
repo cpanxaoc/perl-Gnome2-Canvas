@@ -1,9 +1,9 @@
 
-Gnome2 version 0.20
+Gnome2::Canvas version 0.24
 =================
 
-The Gnome2 module allows a perl developer to use the Gnome libraries.
-Find out more about Gnome+ at http://www.gnome.org.
+The Gnome2::Canvas module allows a perl developer to use the GnomeCanvas
+widget with Gtk2-Perl.  Find out more about Gnome+ at http://www.gnome.org.
 
 The perl bindings follow the C API very closely, and the C reference
 documentation should be considered the canonical source.
@@ -52,9 +52,9 @@ DEPENDENCIES
 This module requires these other modules and libraries:
 
   perl >= 5.8.0
-  Glib >= 0.20 (perl module and requisite C libraries)
-  Gtk2 >= 0.20 (perl module and requisite C libraries)
-  libgnomeui > 2.x (C library)
+  Glib >= 0.24 (perl module and requisite C libraries)
+  Gtk2 >= 0.24 (perl module and requisite C libraries)
+  libgnomecanvas > 2.x (C library)
 
 
 COPYRIGHT AND LICENCE
@@ -76,4 +76,5 @@ You should have received a copy of the GNU Library General Public
 License along with this library; if not, write to the 
 Free Software Foundation, Inc., 59 Temple Place - Suite 330, 
 Boston, MA  02111-1307  USA.
+:w
 

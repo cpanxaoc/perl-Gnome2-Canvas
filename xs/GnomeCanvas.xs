@@ -109,7 +109,7 @@ BOOT:
 # to avoid name clashes.
 #
 
-=for object Gnome2::Canvas_methods
+=for object Gnome2::Canvas_methods (Gnome2::Canvas) a blurb
 =cut
 
 SV *

@@ -66,6 +66,7 @@ BOOT:
 	{
 #include "register.xsh"
 #include "boot.xsh"
+	gperl_handle_logs_for ("GnomeCanvas");
 	}
 
 #
@@ -127,7 +128,6 @@ members (canvas)
 ##  GtkWidget *gnome_canvas_new_aa (void) 
 GtkWidget *
 gnome_canvas_new (class)
-	SV * class
     ALIAS:
 	new_aa = 1
     CODE:

@@ -21,7 +21,7 @@ sub import {
 	$class->VERSION (@_);
 }
 
-sub dl_load_flags { 0x01 }
+sub dl_load_flags { $^O eq 'darwin' ? 0x00 : 0x01 }
 
 bootstrap Gnome2::Canvas $VERSION;
 

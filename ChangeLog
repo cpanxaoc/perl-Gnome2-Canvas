@@ -1,3 +1,7 @@
+2004/08/13 22:33 (-0400) muppetman
+
+	* Canvas.pm: don't set dl_load_flags on darwin.
+
 2004/08/13 22:22 (-0400) muppetman
 
 	* xs/GnomeCanvasItem.xs: apidoc fixes

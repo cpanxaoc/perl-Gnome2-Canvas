@@ -14,7 +14,7 @@ require DynaLoader;
 
 our @ISA = qw(DynaLoader);
 
-our $VERSION = '0.32';
+our $VERSION = '0.33';
 
 sub dl_load_flags { 0x01 }
 
@@ -80,7 +80,7 @@ http://developer.gnome.org/doc/API/2.0/libgnomecanvas/index.html
 
 =head1 AUTHOR
 
-muppet E<lt>scott@asofyet.orgE<gt>
+muppet E<lt>scott at asofyet dot orgE<gt>
 
 If you want to own this project, please let me know.
 

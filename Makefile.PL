@@ -11,9 +11,9 @@ use File::Spec;
 # minimum required version of dependencies we need to build
 our %build_reqs = (
 	'perl-ExtUtils-Depends'   => '0.200',
-	'perl-ExtUtils-PkgConfig' => '0.1',
-	'perl-Glib'               => '1.035',
-	'perl-Gtk2'               => '1.00',
+	'perl-ExtUtils-PkgConfig' => '0.103',
+	'perl-Glib'               => '1.039',
+	'perl-Gtk2'               => '1.039',
 	'GnomeCanvas'             => '2.0.0',
 );
 

@@ -63,7 +63,9 @@ http://developer.gnome.org/doc/whitepapers/canvas/canvas.html
 
 Like the Gtk2 module on which it depends, Gnome2::Canvas follows the C API
 of libgnomecanvas-2.0 as closely as possible while still being perlish.
-Thus, the C API reference remains the canonical documentation.
+Thus, the C API reference remains the canonical documentation; the Perl
+reference documentation lists call signatures and argument types, and is
+meant to be used in conjunction with the C API reference.
 
 To discuss gtk2-perl, ask questions and flame/praise the authors,
 join gtk-perl-list@gnome.org at lists.gnome.org.
@@ -82,7 +84,7 @@ Torsten Schoenfeld <kaffetisch at web dot de>.
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2003 by the gtk2-perl team.
+Copyright 2003-2004 by the gtk2-perl team.
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Library General Public

@@ -116,10 +116,14 @@ SV *
 members (canvas)
 	GnomeCanvas * canvas
     ALIAS:
-	aa = 1
+	aa = 0
+	pixels_per_unit = 1
+	get_pixels_per_unit = 2
     CODE:
 	switch (ix) {
-		case 1: RETVAL = newSViv (canvas->aa); break;
+	    case 0: RETVAL = newSViv (canvas->aa); break;
+	    case 1:
+	    case 2: RETVAL = newSVnv (canvas->pixels_per_unit); break;
 	}
     OUTPUT:
 	RETVAL

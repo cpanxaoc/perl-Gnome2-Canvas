@@ -1,3 +1,7 @@
+2003/09/15 22:26 rwmcfa1
+
+	* Makefile.PL: spec file dependancies improved
+
 2003/09/06 19:23 rwmcfa1
 
 	* Makefile.PL: dist-rpms build target added

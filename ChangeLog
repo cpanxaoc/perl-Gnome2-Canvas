@@ -1,3 +1,9 @@
+2004/08/15 19:37 (-0400) muppetman
+
+	* xs/GnomeCanvasUtil.xs: fixed mysterious failure on darwin of
+	polygon_to_point(); was passing the wrong length value to the C
+	function.  don't know how it worked in the first place.
+
 2004/08/13 22:33 (-0400) muppetman
 
 	* Canvas.pm: don't set dl_load_flags on darwin.

@@ -161,21 +161,23 @@ gnome_canvas_polygon_to_point (class, poly_ref, x, y)
     PREINIT:
 	double *poly;
 	AV *array;
-	SV **value;
 	int length, i;
     CODE:
 	if (! (SvRV (poly_ref) && SvTYPE (SvRV (poly_ref)) == SVt_PVAV))
-		croak ("the polygon parameter has to be a reference to an array");
+		croak ("the polygon parameter should be a reference to an "
+		       "array of coordinate pairs");
 
 	array = (AV *) SvRV (poly_ref);
-	length = av_len (array);
+	length = av_len (array) + 1;
 
-	if (length % 2 != 1)
-		croak ("the polygon array has to contain an even number of coordinates");
+	if (length % 2 != 0)
+		croak ("the polygon array must contain x,y coordinate pairs,"
+		       " so its length cannot be odd (got %d)", length);
 
-	poly = g_new0 (double, length + 1);
+	poly = g_new0 (double, length);
 
-	for (i = 0; i <= length; i += 2) {
+	for (i = 0; i < length; i += 2) {
+		SV **value;
 		value = av_fetch (array, i, 0);
 		if (value && SvOK (*value))
 			poly[i] = SvNV (*value);
@@ -185,7 +187,7 @@ gnome_canvas_polygon_to_point (class, poly_ref, x, y)
 			poly[i + 1] = SvNV (*value);
 	}
 
-	RETVAL = gnome_canvas_polygon_to_point (poly, length + 1, x, y);
+	RETVAL = gnome_canvas_polygon_to_point (poly, length/2, x, y);
 
 	g_free (poly);
     OUTPUT:

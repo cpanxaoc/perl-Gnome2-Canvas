@@ -23,32 +23,20 @@
 #define _GNOMECANVASPERL_H_
 
 #include <gtk2perl.h>
-///#undef _ /* gnome and perl disagree on this one */
 #include <libgnomecanvas/libgnomecanvas.h>
+
+#ifndef GNOME_TYPE_CANVAS_PATH_DEF
+  /* custom boxed wrapper for GnomeCanvasPathDef, since the library doesn't 
+   * supply one. */
+# define GNOME_TYPE_CANVAS_PATH_DEF	(gnomecanvasperl_canvas_path_def_get_type())
+  GType gnomecanvasperl_canvas_path_def_get_type (void) G_GNUC_CONST;
+#endif /* not defined GNOME_TYPE_CANVAS_PATH_DEF */
+
 #include "gnomecanvasperl-autogen.h"
 
 
 /* special handling for libart affine transform arrays */
 SV * newSVArtAffine (double affine[6]);
 double * SvArtAffine (SV * sv);
-
-/* custom boxed wrapper for GnomeCanvasPathDef, since the library doesn't 
- * supply one. */
-#define GNOME_TYPE_CANVAS_PATH_DEF	(gnomecanvasperl_canvas_path_def_get_type())
-GType gnomecanvasperl_canvas_path_def_get_type (void) G_GNUC_CONST;
-
-#ifdef GNOME_TYPE_CANVAS_PATH_DEF
-  /* GBoxed GnomeCanvasPathDef */
-  typedef GnomeCanvasPathDef GnomeCanvasPathDef_ornull;
-# define SvGnomeCanvasPathDef(sv)	(gperl_get_boxed_check ((sv), GNOME_TYPE_CANVAS_PATH_DEF))
-# define SvGnomeCanvasPathDef_ornull(sv)	(((sv) && SvTRUE (sv)) ? SvGnomeCanvasPathDef (sv) : NULL)
-  typedef GnomeCanvasPathDef GnomeCanvasPathDef_own;
-  typedef GnomeCanvasPathDef GnomeCanvasPathDef_copy;
-  typedef GnomeCanvasPathDef GnomeCanvasPathDef_own_ornull;
-# define newSVGnomeCanvasPathDef(val)	(gperl_new_boxed ((val), GNOME_TYPE_CANVAS_PATH_DEF, FALSE))
-# define newSVGnomeCanvasPathDef_own(val)	(gperl_new_boxed ((val), GNOME_TYPE_CANVAS_PATH_DEF, TRUE))
-# define newSVGnomeCanvasPathDef_copy(val)	(gperl_new_boxed_copy ((val), GNOME_TYPE_CANVAS_PATH_DEF))
-# define newSVGnomeCanvasPathDef_own_ornull(val)	((val) ? newSVGnomeCanvasPathDef_own(val) : &PL_sv_undef)
-#endif /* GNOME_TYPE_CANVAS_PATH_DEF */
 
 #endif /* _GNOMECANVASPERL_H_ */

@@ -13,3 +13,4 @@ GNOME_TYPE_CANVAS_SHAPE	GnomeCanvasShape	GtkObject	Gnome2::Canvas::Shape
 GNOME_TYPE_CANVAS_TEXT	GnomeCanvasText	GtkObject	Gnome2::Canvas::Text
 GNOME_TYPE_CANVAS_WIDGET	GnomeCanvasWidget	GtkObject	Gnome2::Canvas::Widget
 GNOME_TYPE_CANVAS_POINTS	GnomeCanvasPoints	GBoxed	Gnome2::Canvas::Points
+GNOME_TYPE_CANVAS_PATH_DEF	GnomeCanvasPathDef	GBoxed	Gnome2::Canvas::PathDef

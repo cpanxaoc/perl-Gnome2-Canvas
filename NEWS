@@ -1,3 +1,13 @@
+Overview of Changes in 1.002
+============================
+
+* Fix a bug in Gnome2::Canvas::polygon_to_point().  [muppet]
+* Fix unusably broken bindings of Gnome2::Canvas::w2c_affine(),
+  Gnome2::Canvas::Item::i2w_affine(), and Gnome2::Canvas::Item::i2c_affine(),
+  with regression tests.  [muppet]
+* Portability fixes for Mac OS X.  [muppet]
+* Minor documentation enhancements.  [muppet]
+
 Overview of Changes in 1.001
 ============================
 

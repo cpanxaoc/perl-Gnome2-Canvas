@@ -1,3 +1,7 @@
+2004/08/15 22:11 (-0400) muppetman
+
+	* Canvas.pm, NEWS, README: stable bugfix release 1.002
+
 2004/08/15 22:07 (-0400) muppetman
 
 	* t/GnomeCanvas.t, t/GnomeCanvasItem.t, xs/GnomeCanvas.xs,

@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Test::More tests => 20;
+use Test::More tests => 14;
 use Gnome2::Canvas;
 
 my $def_one = Gnome2::Canvas::PathDef -> new_sized(10);
@@ -36,9 +36,9 @@ ok(not $def_one -> is_empty());
 my $concat = Gnome2::Canvas::PathDef -> concat($def_one, $def_two);
 isa_ok($concat, "Gnome2::Canvas::PathDef");
 
-foreach ($concat -> split(), $def_two -> open_parts(), $def_one -> closed_parts()) {
-  isa_ok($_, "Gnome2::Canvas::PathDef");
-}
+isa_ok(($concat -> split())[0], "Gnome2::Canvas::PathDef");
+isa_ok(($concat -> open_parts())[0], "Gnome2::Canvas::PathDef");
+isa_ok(($concat -> closed_parts())[0], "Gnome2::Canvas::PathDef");
 
 $def_one -> close_all();
 $def_two -> close_all();

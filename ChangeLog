@@ -1,3 +1,10 @@
+2003/12/29 22:52 (+0100) kaffeetisch
+
+	* t/GnomeCanvasPathDef.t: Don't loop over the return values of
+	split, open_parts and closed_parts but only look at the first
+	returned list element.  This makes the test independent from
+	implementation details.
+
 2003/12/29 16:32 (-0500) rwmcfa1
 
 	* perl-Gnome2-Canvas.spec.in: use the new DATE replacement in 

@@ -640,6 +640,7 @@ sub create {
 	setup_curves ($root);
 	setup_widgets ($root);
 
+## (this FIXME was in the original C source, too)
 ## FIXME: we should have a 'rotation' spinbutton too - and fix the acute
 ##  bugs with that ... 
 ##if 0

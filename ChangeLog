@@ -1,3 +1,11 @@
+2004/01/29 19:22 (-0500) rwmcfa1
+
+	* Canvas.pm, README: beta release 0.91
+
+	* NEWS: initial import
+
+	* MANIFEST: NEWS added
+
 2004/01/25 23:13 (-0500) muppetman
 
 	* gnomecanvasperl.h, maps: rearrange the boxed type support for

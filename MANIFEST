@@ -19,6 +19,7 @@ MANIFEST
 MANIFEST.SKIP
 maps
 META.yml			Module meta-data in YAML
+NEWS
 perl-Gnome2-Canvas.spec.in
 README
 t/01.t

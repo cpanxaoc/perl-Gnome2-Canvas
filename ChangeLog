@@ -1,4 +1,8 @@
-2004/05(17 18:15 (+0200) kaffeetisch
+2004/06/02 15:53 (-0400) muppetman
+
+	* xs/GnomeCanvas.xs: fix the broken example in the synopsis.
+
+2004/05/17 18:15 (+0200) kaffeetisch
 
 	* t/GnomeCanvasPathDef.t: Skip the open_parts and closed_parts
 	tests to pass when working with 2.0.x.

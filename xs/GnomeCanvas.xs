@@ -493,6 +493,7 @@ GET_VERSION_INFO (class)
 	PUSHs (sv_2mortal (newSViv (GNOME_CANVAS_MAJOR_VERSION)));
 	PUSHs (sv_2mortal (newSViv (GNOME_CANVAS_MINOR_VERSION)));
 	PUSHs (sv_2mortal (newSViv (GNOME_CANVAS_MICRO_VERSION)));
+	PERL_UNUSED_VAR (ax);
 
 gboolean
 CHECK_VERSION (class, major, minor, micro)

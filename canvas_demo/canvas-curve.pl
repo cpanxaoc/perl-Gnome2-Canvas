@@ -22,6 +22,24 @@ package CanvasBezierCurve;
 # Authors:
 #     Mark McLoughlin <mark@skynet.ie>
 #
+
+# FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME 
+#
+# there's a nasty workaround in here.
+#
+# you can't set or get the bpath property of the GnomeCanvasBpath via 
+# Glib::Object->get or Glib::Object->set (of course, that includes
+# Gnome::Canvas::Item->new) -- you have to use $bpath->set_path_def and
+# $bpath->get_path_def.
+# 
+# the problem is that the bpath property of of GnomeCanvasBpath is defined as a
+# G_TYPE_POINTER, rather than a G_TYPE_BOXED as it should be.  we can't register
+# copy/free/whatever functions for pointer values, so we can't use any of our
+# way-cool Glib binding tools.  thus, until libgnomecanvas fixes this bug,
+# we have to work around at this level.
+#
+# FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME 
+
 use strict;
 use Carp;
 use Gnome2::Canvas;
@@ -61,25 +79,19 @@ sub draw_curve {
 		$path_def->lineto ($current_points[2], $current_points[3]);
 
 		if ($current_item) {
-			$current_item->set (bpath => $path_def);
+			##$current_item->set (bpath => $path_def);
+			$current_item->set_path_def ($path_def);
 		} else {
-			# FIXME FIXME FIXME FIXME FIXME FIXME 
-			# we crash, very consistently, right here.
-			# stack trace from GDB says it happens in
-			# gnome_canvas_path_def_new_foreign, attempting
-			# to verify the validity of the ArtBPath in the
-			# PathDef object, deep in the bowels of
-			# gnome_canvas_bpath_set_property.
-			# FIXME FIXME FIXME FIXME FIXME FIXME 
-			warn "FIXME FIXME FIXME FIXME FIXME FIXME\n"
-			   . "i'm about to crash and burn";
 			$current_item = Gnome2::Canvas::Item->new (
 						$root,
 						'Gnome2::Canvas::Bpath',
-						bpath => $path_def,
+#						bpath => $path_def,
 						outline_color => 'blue',
 						width_pixels => 5,
 						cap_style => 'round');
+
+			# hack, see above
+			$current_item->set_path_def ($path_def);
 
 			$current_item->signal_connect (event => \&item_event);
 		}
@@ -100,7 +112,8 @@ sub draw_curve {
 				    $current_points[4], $current_points[5],
 				    $current_points[2], $current_points[3]);
 
-		$current_item->set (bpath => $path_def);
+		###$current_item->set (bpath => $path_def);
+		$current_item->set_path_def ($path_def);
 
 		#gnome_canvas_path_def_unref (path_def);
 
@@ -118,7 +131,8 @@ sub draw_curve {
 				    $current_points[6], $current_points[7],
 				    $current_points[2], $current_points[3]);
 
-		$current_item->set (bpath => $path_def);
+		####$current_item->set (bpath => $path_def);
+		$current_item->set_path_def ($path_def);
 
 		#gnome_canvas_path_def_unref (path_def);
 

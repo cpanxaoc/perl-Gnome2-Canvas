@@ -72,6 +72,7 @@ BOOT:
 	GPERL_CALL_BOOT (boot_Gnome2__Canvas__PathDef);
 	GPERL_CALL_BOOT (boot_Gnome2__Canvas__RichText);
 	GPERL_CALL_BOOT (boot_Gnome2__Canvas__Util);
+	GPERL_CALL_BOOT (boot_Gnome2__Canvas__Bpath);
 
 
 SV *

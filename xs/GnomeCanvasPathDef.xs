@@ -42,7 +42,7 @@ GnomeCanvasPathDef_own *
 gnome_canvas_path_def_new (class)
 	SV * class
     C_ARGS:
-	
+	/*void*/
 
 ####  GnomeCanvasPathDef * gnome_canvas_path_def_new_sized (gint length) 
 ##GnomeCanvasPathDef_own *

@@ -24,7 +24,7 @@ our %runtime_reqs = (
 # Writing a fake Makefile ensures that CPAN will pick up the correct
 # dependencies and install them.
 unless (eval "use ExtUtils::Depends;"
-           . "use Glib::PkgConfig;"
+           . "use ExtUtils::PkgConfig;"
            . "use Gtk2::CodeGen;"
            # just seeing if Glib is available isn't enough, make sure
            # it's recent enough, too 
@@ -44,7 +44,8 @@ unless (eval "use ExtUtils::Depends;"
    exit 1; # not reached
 }
 
-%pkgcfg = Glib::PkgConfig->find ('libgnomecanvas-2.0');
+%pkgcfg = ExtUtils::PkgConfig->find ('libgnomecanvas-2.0 >= '
+				     .$build_reqs{Glade});
 
 $runtime_reqs{GnomeCanvas} = $pkgcfg{modversion};
 

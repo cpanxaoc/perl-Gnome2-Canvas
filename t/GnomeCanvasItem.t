@@ -44,6 +44,10 @@ $item -> i2c_affine([23, 23, 42, 42, 0, 0]);
 $item -> reparent($group);
 $item -> grab_focus();
 
+# versions of libgnomecanvas prior to 2.1.0 did not properly check the
+# validity of paths when getting bounds on shape items.
+# so, it is normal to get a GnomeCanvas-CRITICAL assertion from this line
+# on Gnome 2.0 systems.
 is_deeply([$item -> get_bounds()], [0, 0, 0, 0]);
 
 $item -> hide();

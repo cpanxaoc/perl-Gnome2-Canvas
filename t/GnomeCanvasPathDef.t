@@ -36,7 +36,7 @@ ok(not $def_one -> is_empty());
 my $concat = Gnome2::Canvas::PathDef -> concat($def_one, $def_two);
 isa_ok($concat, "Gnome2::Canvas::PathDef");
 
-foreach ($concat -> split(), $concat -> open_parts(), $concat -> closed_parts()) {
+foreach ($concat -> split(), $def_two -> open_parts(), $def_one -> closed_parts()) {
   isa_ok($_, "Gnome2::Canvas::PathDef");
 }
 

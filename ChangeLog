@@ -1,3 +1,11 @@
+2003/12/17 10:58 (-0500) muppetman
+
+	* t/GnomeCanvasPathDef.t: patch from kaffee hushes some warnings
+	on FreeBSD.
+
+	* t/GnomeCanvasItem.t: added commentary about how we can't do anything
+	about warnings from get_bounds() on shapes on libgnomecanvas 2.0.x.
+
 2003/12/07 13:47 (+0100) kaffeetisch
 
 	A t/GnomeCanvas.t

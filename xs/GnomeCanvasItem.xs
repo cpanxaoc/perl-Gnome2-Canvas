@@ -23,16 +23,15 @@
 MODULE = Gnome2::Canvas::Item	PACKAGE = Gnome2::Canvas::Item	PREFIX = gnome_canvas_item_
 
 SV *
-members (item)
+canvas (item)
 	GnomeCanvasItem * item
     ALIAS:
-	canvas = 1
-	parent = 2
+	parent = 1
     CODE:
 	RETVAL = NULL;
 	switch (ix) {
-	    case 1: RETVAL = newSVGnomeCanvas (item->canvas); break;
-	    case 2: RETVAL = newSVGnomeCanvasGroup_ornull (item->parent); break;
+	    case 0: RETVAL = newSVGnomeCanvas (item->canvas); break;
+	    case 1: RETVAL = newSVGnomeCanvasGroup_ornull (item->parent); break;
 	}
     OUTPUT:
 	RETVAL

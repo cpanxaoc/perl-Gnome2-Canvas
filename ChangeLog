@@ -1,3 +1,8 @@
+2003/08/19 21:11 rwmcfa1
+
+	* Makefile.PL: added realclean removal of build dir to postamble 
+	section.
+
 2003/08/18 12:34 muppetman
 
 	* debian/*: patch from james curbo adds debian packaging stuff

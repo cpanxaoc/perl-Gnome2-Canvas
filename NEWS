@@ -1,0 +1,6 @@
+Overview of Changes in Gnome2::Canvas 0.91
+==========================================
+
+* GnomeCancasPathDef, handling re-worked.
+* apidoc POD updates
+* some new demos added, others updated

@@ -78,6 +78,8 @@ join gtk-perl-list@gnome.org at lists.gnome.org.
 perl(1), Glib(3pm), Gtk2(3pm), GNOME Canvas Library Reference Manual
 http://developer.gnome.org/doc/API/2.0/libgnomecanvas/index.html
 
+Gnome2::Canvas::index(3pm) lists the generated Perl API reference PODs.
+
 =head1 AUTHOR
 
 muppet E<lt>scott at asofyet dot orgE<gt>

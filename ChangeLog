@@ -15,11 +15,11 @@
 	Makefile.PL magic to get that information.  Refactor the Makefile.PL
 	code a bit, too.
 
-2004/04/07 00:40 (-0500) muppetman
+2004/03/07 00:40 (-0500) muppetman
 
 	* Makefile.PL: check the version of ExtUtils::Depends.
 
-2004/04/07 00:35 (-0500) muppetman
+2004/03/07 00:35 (-0500) muppetman
 
 	* Canvas.pm, xs/GnomeCanvas.xs: move pod from Canvas.pm to
 	xs/GnomeCanvas.xs, and beef it up.  use the description text from

@@ -20,16 +20,31 @@
  */
 #include "gnomecanvasperl.h"
 
+
+/*
+ * if/when libgnomecanvas provides a boxed wrapper for GnomeCanvasPathDef,
+ * we'll have to put these two functions behind version guards.
+ */
+
+static GnomeCanvasPathDef *
+path_def_boxed_copy (GnomeCanvasPathDef * path_def)
+{
+	if (path_def)
+		gnome_canvas_path_def_ref (path_def);
+	return path_def;
+}
+
 GType
 gnomecanvasperl_canvas_path_def_get_type (void)
 {
 	static GType id = 0;
 	if (!id)
 		id = g_boxed_type_register_static ("GnomeCanvasPathDef",
-		              (GBoxedCopyFunc) gnome_canvas_path_def_duplicate,
+		              (GBoxedCopyFunc) path_def_boxed_copy,
 		              (GBoxedFreeFunc) gnome_canvas_path_def_unref);
 	return id;
 }
+
 
 MODULE = Gnome2::Canvas::PathDef	PACKAGE = Gnome2::Canvas::PathDef	PREFIX = gnome_canvas_path_def_
 
@@ -77,10 +92,16 @@ gnome_canvas_path_def_ensure_space (path, space)
 	gint space
 
 ####  void gnome_canvas_path_def_copy (GnomeCanvasPathDef * dst, const GnomeCanvasPathDef * src) 
-##void
-##gnome_canvas_path_def_copy (dst, src)
-##	GnomeCanvasPathDef * dst
-##	const GnomeCanvasPathDef * src
+=for apidoc
+Copy the path from I<$src> into I<$dst>.
+
+Note: this method has very different semantics than the copy provided
+by Glib::Boxed.   C<duplicate> is the analog there.
+=cut
+void
+gnome_canvas_path_def_copy (dst, src)
+	GnomeCanvasPathDef * dst
+	const GnomeCanvasPathDef * src
 
 ##  GnomeCanvasPathDef * gnome_canvas_path_def_duplicate (const GnomeCanvasPathDef * path) 
 GnomeCanvasPathDef_own *

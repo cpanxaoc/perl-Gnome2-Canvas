@@ -1,3 +1,12 @@
+2003/06/20 12:00 muppetman
+
+	* Canvas.pm Makefile.PL README: bump version info and prepare for
+	0.24 release
+
+	* gnomecanvasperl.h: one-time-include stuff used the wrong name,
+	would prevent inclusion of gnome2perl.h (copy and paste bug - bad
+	muppet, no biscuit)
+
 2003/06/19 17:11 pcg
 
 	* t/01.t: make it actually work.

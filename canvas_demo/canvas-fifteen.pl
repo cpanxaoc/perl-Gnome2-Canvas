@@ -1,274 +1,209 @@
-#include <config.h>
-#include <stdio.h>
-#include <math.h>
-#include <time.h>
-#include "canvas_demo.h"
+package CanvasFifteen;
+use strict;
+use Gnome2::Canvas;
+use constant TRUE => 1;
+use constant FALSE => 0;
+use constant PIECE_SIZE => 50;
 
 
-#define PIECE_SIZE 50
+sub test_win {
+	my ($window, $board) = @_;
 
-
-static void
-free_stuff (GtkObject *obj, gpointer data)
-{
-	g_free (data);
-}
-
-static void
-test_win (GnomeCanvasItem **board)
-{
-	int i;
-#if 0
-	GtkWidget *dlg;
-#endif
-
-	for (i = 0; i < 15; i++)
-		if (!board[i] || (GPOINTER_TO_INT (g_object_get_data (G_OBJECT (board[i]), "piece_num")) != i))
+	for (my $i = 0; $i < 15; $i++) {
+		if (!$board->[$i] || ($board->[$i]{piece_num} != $i)) {
 			return;
+		}
+	}
 
-#if 0
-	dlg=gnome_ok_dialog ("You stud, you win!");
-	gtk_window_set_modal(GTK_WINDOW(dlg),TRUE);
-	gnome_dialog_run (GNOME_DIALOG (dlg));
-#endif
+	my $dlg = Gtk2::MessageDialog->new ($window, 'destroy-with-parent',
+					   'info', 'ok', "You stud, you win!");
+	$dlg->signal_connect (response => sub {$_[0]->destroy});
+	$dlg->run;
 }
 
-static char *
-get_piece_color (int piece)
-{
-	static char buf[50];
-	int x, y;
-	int r, g, b;
+sub get_piece_color {
+	my ($piece) = @_;
 
-	y = piece / 4;
-	x = piece % 4;
+	my $y = $piece / 4;
+	my $x = $piece % 4;
 
-	r = ((4 - x) * 255) / 4;
-	g = ((4 - y) * 255) / 4;
-	b = 128;
+	my $r = ((4 - $x) * 255) / 4;
+	my $g = ((4 - $y) * 255) / 4;
+	my $b = 128;
 
-	sprintf (buf, "#%02x%02x%02x", r, g, b);
-
-	return buf;
+	return sprintf "#%02x%02x%02x", $r, $g, $b;
 }
 
-static gint
-piece_event (GnomeCanvasItem *item, GdkEvent *event, gpointer data)
-{
-	GnomeCanvas *canvas;
-	GnomeCanvasItem **board;
-	GnomeCanvasItem *text;
-	int num, pos, newpos;
-	int x, y;
-	double dx = 0.0, dy = 0.0;
-	int move;
+sub piece_event {
+	my ($item, $event) = @_;
 
-	canvas = item->canvas;
-	board = g_object_get_data (G_OBJECT (canvas), "board");
-	num = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (item), "piece_num"));
-	pos = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (item), "piece_pos"));
-	text = g_object_get_data (G_OBJECT (item), "text");
+	my $board = $item->canvas->{board};
+	my $num = $item->{piece_num};
+	my $pos = $item->{piece_pos};
+	my $text = $item->{text};
 
-	switch (event->type) {
-	case GDK_ENTER_NOTIFY:
-		gnome_canvas_item_set (text,
-				       "fill_color", "white",
-				       NULL);
-		break;
+	if ($event->type eq 'enter-notify') {
+		$text->set (fill_color => "white");
 
-	case GDK_LEAVE_NOTIFY:
-		gnome_canvas_item_set (text,
-				       "fill_color", "black",
-				       NULL);
-		break;
+	} elsif ($event->type eq 'leave-notify') {
+		$text->set (fill_color => "black");
 
-	case GDK_BUTTON_PRESS:
-		y = pos / 4;
-		x = pos % 4;
+	} elsif ($event->type eq 'button-press') {
+		my $y = int ($pos / 4);
+		my $x = int ($pos % 4);
 
-		move = TRUE;
+		my ($dx, $dy) = (0.0, 0.0);
 
-		if ((y > 0) && (board[(y - 1) * 4 + x] == NULL)) {
-			dx = 0.0;
-			dy = -1.0;
-			y--;
-		} else if ((y < 3) && (board[(y + 1) * 4 + x] == NULL)) {
-			dx = 0.0;
-			dy = 1.0;
-			y++;
-		} else if ((x > 0) && (board[y * 4 + x - 1] == NULL)) {
-			dx = -1.0;
-			dy = 0.0;
-			x--;
-		} else if ((x < 3) && (board[y * 4 + x + 1] == NULL)) {
-			dx = 1.0;
-			dy = 0.0;
-			x++;
-		} else
-			move = FALSE;
+		my $move = TRUE;
 
-		if (move) {
-			newpos = y * 4 + x;
-			board[pos] = NULL;
-			board[newpos] = item;
-			g_object_set_data (G_OBJECT (item), "piece_pos", GINT_TO_POINTER (newpos));
-			gnome_canvas_item_move (item, dx * PIECE_SIZE, dy * PIECE_SIZE);
-			test_win (board);
+		if (($y > 0) && (! $board->[($y - 1) * 4 + $x])) {
+			$dx = 0.0;
+			$dy = -1.0;
+			$y--;
+		} elsif (($y < 3) && (! $board->[($y + 1) * 4 + $x])) {
+			$dx = 0.0;
+			$dy = 1.0;
+			$y++;
+		} elsif (($x > 0) && (! $board->[$y * 4 + $x - 1])) {
+			$dx = -1.0;
+			$dy = 0.0;
+			$x--;
+		} elsif (($x < 3) && (! $board->[$y * 4 + $x + 1])) {
+			$dx = 1.0;
+			$dy = 0.0;
+			$x++;
+		} else {
+			$move = FALSE;
 		}
 
-		break;
-
-	default:
-		break;
+		if ($move) {
+			my $newpos = $y * 4 + $x;
+			$board->[$pos] = undef;
+			$board->[$newpos] = $item;
+			$item->{piece_pos} = $newpos;
+			$item->move ($dx * PIECE_SIZE, $dy * PIECE_SIZE);
+			test_win ($item->canvas->get_toplevel, $board);
+		}
 	}
 
 	return FALSE;
 }
 
-#define SCRAMBLE_MOVES 256
+use constant SCRAMBLE_MOVES => 256;
 
-static void
-scramble (GtkObject *object, gpointer data)
-{
-	GnomeCanvas *canvas;
-	GnomeCanvasItem **board;
-	int i;
-	int pos, oldpos;
-	int dir;
-	int x, y;
+sub scramble {
+	my (undef, $canvas) = @_;
+	my $board = $canvas->{board};
 
-	srand (time (NULL));
+	# First, find the blank spot
 
-	canvas = data;
-	board = g_object_get_data (G_OBJECT (object), "board");
+	my $pos;
+	for ($pos = 0; $pos < 16; $pos++) {
+		last if not defined $board->[$pos];
+	}
 
-	/* First, find the blank spot */
+	# "Move the blank spot" around in order to scramble the pieces
 
-	for (pos = 0; pos < 16; pos++)
-		if (board[pos] == NULL)
-			break;
+	for (my $i = 0; $i < SCRAMBLE_MOVES; $i++) {
+		my ($x, $y) = (0, 0);
+		do {
+			my $dir = rand (65535) % 4;
 
-	/* "Move the blank spot" around in order to scramble the pieces */
+			($x, $y) = (0, 0);
 
-	for (i = 0; i < SCRAMBLE_MOVES; i++) {
-retry_scramble:
-		dir = rand () % 4;
+			if (($dir == 0) && ($pos > 3)) { # up
+				$y = -1;
+			} elsif (($dir == 1) && ($pos < 12)) { # down
+				$y = 1;
+			} elsif (($dir == 2) && (($pos % 4) != 0)) { # left
+				$x = -1;
+			} elsif (($dir == 3) && (($pos % 4) != 3)) { # right
+				$x = 1;
+			}
+		} while ($x == $y);
 
-		x = y = 0;
-
-		if ((dir == 0) && (pos > 3)) /* up */
-			y = -1;
-		else if ((dir == 1) && (pos < 12)) /* down */
-			y = 1;
-		else if ((dir == 2) && ((pos % 4) != 0)) /* left */
-			x = -1;
-		else if ((dir == 3) && ((pos % 4) != 3)) /* right */
-			x = 1;
-		else
-			goto retry_scramble;
-
-		oldpos = pos + y * 4 + x;
-		board[pos] = board[oldpos];
-		board[oldpos] = NULL;
-		g_object_set_data (G_OBJECT (board[pos]), "piece_pos", GINT_TO_POINTER (pos));
-		gnome_canvas_item_move (board[pos], -x * PIECE_SIZE, -y * PIECE_SIZE);
-		gnome_canvas_update_now (canvas);
-		pos = oldpos;
+		my $oldpos = $pos + $y * 4 + $x;
+		$board->[$pos] = $board->[$oldpos];
+		$board->[$oldpos] = undef;
+		$board->[$pos]{piece_pos} = $pos;
+		$board->[$pos]->move (-$x * PIECE_SIZE, -$y * PIECE_SIZE);
+		$canvas->update_now;
+		$pos = $oldpos;
 	}
 }
 
-GtkWidget *
-create_canvas_fifteen (void)
-{
-	GtkWidget *vbox;
-	GtkWidget *alignment;
-	GtkWidget *frame;
-	GtkWidget *canvas;
-	GtkWidget *button;
-	GnomeCanvasItem **board;
-	GnomeCanvasItem *text;
-	int i, x, y;
-	char buf[20];
+sub create {
+	my $vbox = Gtk2::VBox->new (FALSE, 4);
+	$vbox->set_border_width (4);
+	$vbox->show;
 
-	vbox = gtk_vbox_new (FALSE, 4);
-	gtk_container_set_border_width (GTK_CONTAINER (vbox), 4);
-	gtk_widget_show (vbox);
+	my $alignment = Gtk2::Alignment->new (0.5, 0.5, 0.0, 0.0);
+	$vbox->pack_start ($alignment, TRUE, TRUE, 0);
+	$alignment->show;
 
-	alignment = gtk_alignment_new (0.5, 0.5, 0.0, 0.0);
-	gtk_box_pack_start (GTK_BOX (vbox), alignment, TRUE, TRUE, 0);
-	gtk_widget_show (alignment);
+	my $frame = Gtk2::Frame->new;
+	$frame->set_shadow_type ('in');
+	$alignment->add ($frame);
+	$frame->show;
 
-	frame = gtk_frame_new (NULL);
-	gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_IN);
-	gtk_container_add (GTK_CONTAINER (alignment), frame);
-	gtk_widget_show (frame);
+	# Create the canvas and board
 
-	/* Create the canvas and board */
+	my $canvas = Gnome2::Canvas->new;
+	$canvas->set_size_request (PIECE_SIZE * 4 + 1, PIECE_SIZE * 4 + 1);
+	$canvas->set_scroll_region (0, 0, PIECE_SIZE * 4 + 1, PIECE_SIZE * 4 + 1);
+	$frame->add ($canvas);
+	$canvas->show;
 
-	canvas = gnome_canvas_new ();
-	gtk_widget_set_size_request (canvas, PIECE_SIZE * 4 + 1, PIECE_SIZE * 4 + 1);
-	gnome_canvas_set_scroll_region (GNOME_CANVAS (canvas), 0, 0, PIECE_SIZE * 4 + 1, PIECE_SIZE * 4 + 1);
-	gtk_container_add (GTK_CONTAINER (frame), canvas);
-	gtk_widget_show (canvas);
+	my @board = ();
+	$canvas->{board} = \@board;
 
-	board = g_new (GnomeCanvasItem *, 16);
-	g_object_set_data (G_OBJECT (canvas), "board", board);
-	g_signal_connect (canvas, "destroy",
-			  G_CALLBACK (free_stuff),
-			  board);
+	for (my $i = 0; $i < 15; $i++) {
+		my $y = int ($i / 4);
+		my $x = int ($i % 4);
 
-	for (i = 0; i < 15; i++) {
-		y = i / 4;
-		x = i % 4;
+		$board[$i] = Gnome2::Canvas::Item->new
+					($canvas->root,
+					 Gnome2::Canvas::Group::,
+					 x => $x * PIECE_SIZE,
+					 y => $y * PIECE_SIZE);
 
-		board[i] = gnome_canvas_item_new (gnome_canvas_root (GNOME_CANVAS (canvas)),
-						  gnome_canvas_group_get_type (),
-						  "x", (double) (x * PIECE_SIZE),
-						  "y", (double) (y * PIECE_SIZE),
-						  NULL);
+		Gnome2::Canvas::Item->new ($board[$i],
+					 Gnome2::Canvas::Rect::,
+					 x1            => 0.0,
+					 y1            => 0.0,
+					 x2            => PIECE_SIZE,
+					 y2            => PIECE_SIZE,
+					 fill_color    => get_piece_color ($i),
+					 outline_color => "black",
+					 width_pixels  => 0);
 
-		gnome_canvas_item_new (GNOME_CANVAS_GROUP (board[i]),
-				       gnome_canvas_rect_get_type (),
-				       "x1", 0.0,
-				       "y1", 0.0,
-				       "x2", (double) PIECE_SIZE,
-				       "y2", (double) PIECE_SIZE,
-				       "fill_color", get_piece_color (i),
-				       "outline_color", "black",
-				       "width_pixels", 0,
-				       NULL);
+		my $text = Gnome2::Canvas::Item->new
+					($board[$i],
+					 Gnome2::Canvas::Text::,
+					 text       => sprintf ('%d', $i+1),
+					 x          => PIECE_SIZE / 2.0,
+					 y          => PIECE_SIZE / 2.0,
+					 font       => 'Sans bold 24',
+					 anchor     => 'center',
+					 fill_color => 'black');
 
-		sprintf (buf, "%d", i + 1);
-
-		text = gnome_canvas_item_new (GNOME_CANVAS_GROUP (board[i]),
-					      gnome_canvas_text_get_type (),
-					      "text", buf,
-					      "x", (double) PIECE_SIZE / 2.0,
-					      "y", (double) PIECE_SIZE / 2.0,
-					      "font", "Sans bold 24",
-					      "anchor", GTK_ANCHOR_CENTER,
-					      "fill_color", "black",
-					      NULL);
-
-		g_object_set_data (G_OBJECT (board[i]), "piece_num", GINT_TO_POINTER (i));
-		g_object_set_data (G_OBJECT (board[i]), "piece_pos", GINT_TO_POINTER (i));
-		g_object_set_data (G_OBJECT (board[i]), "text", text);
-		g_signal_connect (board[i], "event",
-				  G_CALLBACK (piece_event),
-				  NULL);
+		$board[$i]{piece_num} = $i;
+		$board[$i]{piece_pos} = $i;
+		$board[$i]{text} = $text;
+		$board[$i]->signal_connect (event => \&piece_event);
 	}
 
-	board[15] = NULL;
+	$board[15] = undef;
 
-	/* Scramble button */
+	# Scramble button
 
-	button = gtk_button_new_with_label ("Scramble");
-	gtk_box_pack_start (GTK_BOX (vbox), button, FALSE, FALSE, 0);
-	g_object_set_data (G_OBJECT (button), "board", board);
-	g_signal_connect (button, "clicked",
-			  G_CALLBACK (scramble),
-			  canvas);
-	gtk_widget_show (button);
+	my $button = Gtk2::Button->new_with_label ("Scramble");
+	$vbox->pack_start ($button, FALSE, FALSE, 0);
+	$button->{board} = \@board;
+	$button->signal_connect (clicked => \&scramble, $canvas);
+	$button->show;
 
-	return vbox;
+	return $vbox;
 }
+
+1;

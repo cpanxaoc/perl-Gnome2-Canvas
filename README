@@ -1,6 +1,6 @@
 
-Gnome2::Canvas version 1.00
-===========================
+Gnome2::Canvas version 1.001
+============================
 
 The Gnome2::Canvas module allows a perl developer to use the GnomeCanvas
 widget with Gtk2-Perl.  Find out more about Gnome+ at http://www.gnome.org.

@@ -1,3 +1,11 @@
+Overview of Changes in 1.001
+============================
+
+* Fix the broken example in the documentation synopsis.  [muppet]
+* Skip the open_parts and closed_parts tests to pass when working with
+  libgnomecanvas 2.0.x.  [Torsten]
+* Hush unused variable warning.  [muppet]
+
 Overview of Changes in 1.0
 ==========================
 

@@ -1,3 +1,13 @@
+2003/11/06 11:37 (-0500) muppetman
+
+	* xs/GnomeCanvas.xs: route GnomeCanvas's log domains through perl's
+	warn() and croak()
+
+	* xs/GnomeCanvasItem.xs, xs/GnomeCanvasPathDef.xs,
+	xs/GnomeCanvasUtil.xs: remove type on class params so that the doc
+	shows them correctly (and so that the bindings don't waste cycles
+	on unused params)
+
 2003/11/02 14:17 muppetman
 
 	* Makefile.PL: remove the stupid atleast version checks -- Glib and

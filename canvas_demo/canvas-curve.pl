@@ -21,6 +21,7 @@ package CanvasBezierCurve;
 #
 # Authors:
 #     Mark McLoughlin <mark@skynet.ie>
+#     muppet <scott at asofyet dot org> (gtk2-perl port)
 #
 
 # FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME 
@@ -60,11 +61,6 @@ sub draw_curve {
 	my $root = $item->parent;
 
 	if ($current_state == STATE_INIT) {
-		#g_assert (!current_item);
-
-#		if (!current_points)
-#			current_points = gnome_canvas_points_new (4);
-
 		$current_points[0] = $x;
 		$current_points[1] = $y;
 
@@ -85,7 +81,8 @@ sub draw_curve {
 			$current_item = Gnome2::Canvas::Item->new (
 						$root,
 						'Gnome2::Canvas::Bpath',
-#						bpath => $path_def,
+			###			can't do this here, see below
+			###			bpath => $path_def,
 						outline_color => 'blue',
 						width_pixels => 5,
 						cap_style => 'round');
@@ -96,11 +93,7 @@ sub draw_curve {
 			$current_item->signal_connect (event => \&item_event);
 		}
 
-		#gnome_canvas_path_def_unref (path_def);
-
 	} elsif ($current_state == STATE_FIRST_RELEASE) {
-		#g_assert (current_item);
-
 		$current_points[4] = $x;
 		$current_points[5] = $y;
 
@@ -114,8 +107,6 @@ sub draw_curve {
 
 		###$current_item->set (bpath => $path_def);
 		$current_item->set_path_def ($path_def);
-
-		#gnome_canvas_path_def_unref (path_def);
 
 	} elsif ($current_state == STATE_SECOND_PRESS) {
 		#g_assert (current_item);
@@ -134,8 +125,6 @@ sub draw_curve {
 		####$current_item->set (bpath => $path_def);
 		$current_item->set_path_def ($path_def);
 
-		#gnome_canvas_path_def_unref (path_def);
-
 		$current_item = undef;
 
 	} else {
@@ -147,7 +136,7 @@ sub item_event {
 	my ($item, $event) = @_;
 	if ($event->type eq 'button-press' &&
 	    $event->button == 1 &&
-	    grep {/shift-mask/} @{ $event->state }) {
+	    $event->state >= 'shift-mask') {
 
 		if ($item == $current_item) {
 			$current_item = undef;

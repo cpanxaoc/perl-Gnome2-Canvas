@@ -1,12 +1,9 @@
 package CanvasPrimitives;
 use strict;
 use Gnome2::Canvas;
+use Gtk2::Gdk::Keysyms;
 use constant TRUE => 1;
 use constant FALSE => 0;
-
-#include <libgnomecanvas/gnome-canvas-path-def.h>
-use Gtk2::Gdk::Keysyms;
-
 use constant M_PI => 3.141529;
 
 sub zoom_changed {
@@ -20,36 +17,33 @@ my ($x, $y);
 sub item_event {
 	my ($item, $event) = @_;
 
-	# set item_[xy] to the event x,y position in the parent's item-relative coordinates
-	##gnome_canvas_item_w2i (item->parent, &item_x, &item_y);
+	# set item_[xy] to the event x,y position in the parent's
+	# item-relative coordinates
 	my ($item_x, $item_y) = $item->parent->w2i ($event->coords);
 
 	if ($event->type eq 'button-press') {
 		if ($event->button == 1) {
-			if (grep {/shift-mask/} @{$event->state}) {
+			if ($event->state >= 'shift-mask') {
 				$item->destroy;
 			} else {
 				$x = $item_x;
 				$y = $item_y;
 
-#				fleur = gdk_cursor_new (GDK_FLEUR);
-##if 0
-#				gnome_canvas_item_grab (item,
-#							GDK_POINTER_MOTION_MASK | GDK_BUTTON_RELEASE_MASK,
-#							fleur,
-#							event->button.time);
-##endif
-#				gdk_cursor_unref (fleur);
+				$item->grab ([qw/pointer-motion-mask
+				                 button-release-mask/],
+				             Gtk2::Gdk::Cursor->new ('fleur'),
+				            $event->time);
+
 				$dragging = TRUE;
 			}
 		} elsif ($event->button == 2) {
-			if (grep {/shift-mask/} @{$event->state}) {
+			if ($event->state >= 'shift-mask') {
 				$item->lower_to_bottom;
 			} else {
 				$item->lower (1);
 			}
 		} elsif ($event->button == 3) {
-			if (grep {/shift-mask/} @{$event->state}) {
+			if ($event->state >= 'shift-mask') {
 				$item->raise_to_top;
 			} else {
 				$item->raise (1);
@@ -57,7 +51,7 @@ sub item_event {
 		}
 
 	} elsif ($event->type eq 'motion-notify') {
-		if ($dragging && (grep {/button1-mask/} @{$event->state})) {
+		if ($dragging && $event->state >= 'button1-mask') {
 			my $new_x = $item_x;
 			my $new_y = $item_y;
 
@@ -67,7 +61,7 @@ sub item_event {
 		}
 
 	} elsif ($event->type eq 'button-release') {
-#		gnome_canvas_item_ungrab (item, event->button.time);
+		$item->ungrab ($event->time);
 		$dragging = FALSE;
 	}
 
@@ -168,7 +162,8 @@ sub setup_rectangles {
 					   outline_color => 'black',
 					   width_units => 4.0));
 	} else {
-		my $stipple = Gtk2::Gdk::Bitmap->create_from_data (undef, $gray50_bits, $gray50_width, $gray50_height);
+		my $stipple = Gtk2::Gdk::Bitmap->create_from_data
+			(undef, $gray50_bits, $gray50_width, $gray50_height);
 		setup_item (Gnome2::Canvas::Item->new ($root,
 					'Gnome2::Canvas::Rect',
 					x1 => 90.0,
@@ -222,7 +217,8 @@ sub setup_ellipses {
 						   "outline_color", "black",
 						   "width_pixels", 0));
 	} else {
-		my $stipple = Gtk2::Gdk::Bitmap->create_from_data (undef, $gray50_bits, $gray50_width, $gray50_height);
+		my $stipple = Gtk2::Gdk::Bitmap->create_from_data
+			(undef, $gray50_bits, $gray50_width, $gray50_height);
 		setup_item (Gnome2::Canvas::Item->new ($root,
 						   'Gnome2::Canvas::Ellipse',
 						   "x1", 210.0,
@@ -233,7 +229,6 @@ sub setup_ellipses {
 						   "fill_stipple", $stipple,
 						   "outline_color", "black",
 						   "width_pixels", 0));
-		##gdk_bitmap_unref (stipple);
 	}
 }
 
@@ -280,7 +275,6 @@ sub setup_texts {
 				       "anchor", 'GTK_ANCHOR_NW',
 				       "fill_color", "blue",
 				       "fill_stipple", $stipple);
-		#gdk_bitmap_unref (stipple);
 	}
 
 	Gnome2::Canvas::Item->new (make_anchor ($root, 470.0, 75.0),
@@ -319,10 +313,9 @@ sub plant_flower {
 					       "y", $y,
 					       "width", $im->get_width,
 					       "height", $im->get_height,
-#  					       "anchor", anchor,
+  					       "anchor", $anchor,
 					       );
 	setup_item ($image);
-	#gdk_pixbuf_unref(im);
 	}
 }
 
@@ -333,15 +326,14 @@ sub setup_images {
 	my $im = Gtk2::Gdk::Pixbuf->new_from_file("toroid.png");
 	my $image = Gnome2::Canvas::Item->new ($root,
 					       'Gnome2::Canvas::Pixbuf',
-					       "pixbuf", $im,
-					       "x", 100.0,
-					       "y", 225.0,
-					       "width", $im->get_width,
-					       "height", $im->get_height,
-###  					       "anchor", GTK_ANCHOR_CENTER,
+					       pixbuf => $im,
+					       x      => 100.0,
+					       y      => 225.0,
+					       width  => $im->get_width,
+					       height => $im->get_height,
+					       anchor => 'center',
 					       );
 	setup_item ($image);
-	##gdk_pixbuf_unref(im);
 
 	plant_flower ($root,  20.0, 170.0, 'GTK_ANCHOR_NW', $aa);
 	plant_flower ($root, 180.0, 170.0, 'GTK_ANCHOR_NE', $aa);
@@ -386,37 +378,6 @@ use constant SCALE => 7.0;
 sub make_hilbert {
 	my $root = shift;
 	my $hilbert = "urdrrulurulldluuruluurdrurddldrrruluurdrurddldrddlulldrdldrrurd";
-#	char *c;
-#	double *pp, *p;
-#	GnomeCanvasPoints *points;
-#
-#	points = Gnome2::Canvas::Points->new (strlen (hilbert) + 1);
-#	points->coords[0] = 340.0;
-#	points->coords[1] = 290.0;
-#
-#	pp = points->coords;
-#	for (c = hilbert, p = points->coords + 2; *c; c++, p += 2, pp += 2)
-#		switch (*c) {
-#		case 'u':
-#			p[0] = pp[0];
-#			p[1] = pp[1] - SCALE;
-#			break;
-#
-#		case 'd':
-#			p[0] = pp[0];
-#			p[1] = pp[1] + SCALE;
-#			break;
-#
-#		case 'l':
-#			p[0] = pp[0] - SCALE;
-#			p[1] = pp[1];
-#			break;
-#
-#		case 'r':
-#			p[0] = pp[0] + SCALE;
-#			p[1] = pp[1];
-#			break;
-#		}
 
 	my @coords = (340.0, 290.0);
 	my @d = split //, $hilbert;
@@ -445,7 +406,8 @@ sub make_hilbert {
 					cap_style => 'projecting',
 					join_style => 'miter'));
 	} else {
-		my $stipple = Gtk2::Gdk::Bitmap->create_from_data (undef, $gray50_bits, $gray50_width, $gray50_height);
+		my $stipple = Gtk2::Gdk::Bitmap->create_from_data
+			(undef, $gray50_bits, $gray50_width, $gray50_height);
 		setup_item (Gnome2::Canvas::Item->new ($root,
 					'Gnome2::Canvas::Line',
 					points => \@coords,
@@ -454,7 +416,6 @@ sub make_hilbert {
 					width_units => 4.0,
 					cap_style => 'projecting',
 					join_style => 'miter'));
-		#gdk_bitmap_unref (stipple);
 	}
 }
 
@@ -502,21 +463,19 @@ sub setup_lines {
 					       "arrow_shape_c", 4.0));
 }
 
-#if 1
 sub setup_curves {
-#	my $root = shift;
-#	my $path_def = Gnome2::Canvas::PathDef->new;
-#	print "$path_def\n";
-#	$path_def->moveto (500.0, 175.0);
-#	print "$path_def\n";
-#	$path_def->curveto (550.0, 175.0, 550.0, 275.0, 500.0, 275.0);	
-#	print "$path_def\n";
-#	setup_item(Gnome2::Canvas::Item->new ($root, 'Gnome2::Canvas::Bpath',
-#					      bpath => $path_def,
-#					      outline_color => "black",
-#					      width_pixels => 4));
+	my $root = shift;
+	my $path_def = Gnome2::Canvas::PathDef->new;
+	$path_def->moveto (500.0, 175.0);
+	$path_def->curveto (550.0, 175.0, 550.0, 275.0, 500.0, 275.0);	
+	my $item = Gnome2::Canvas::Item->new ($root, 'Gnome2::Canvas::Bpath',
+					      #### can't set this here
+					      ####bpath => $path_def,
+					      outline_color => "black",
+					      width_pixels => 4);
+	$item->set_path_def ($path_def);
+	setup_item ($item);
 }
-#endif
 
 sub setup_polygons {
 	my $root = shift;
@@ -539,7 +498,6 @@ sub setup_polygons {
 					   fill_color => "blue",
 					   fill_stipple => $stipple,
 					   outline_color => "black"));
-		#gdk_bitmap_unref (stipple);
 	}
 
 	@points = (270.0, 330.0,
@@ -712,9 +670,7 @@ sub create {
 			0, 0);
 	$w->show;
 
-	#GTK_WIDGET_SET_FLAGS (canvas, GTK_CAN_FOCUS);
 	$canvas->set_flags ('can-focus');
-	#gtk_widget_grab_focus (canvas);
 	$canvas->grab_focus;
 
 	return $vbox;

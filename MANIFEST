@@ -20,6 +20,7 @@ maps
 README
 t/01.t
 TODO
+xs/GnomeCanvasBpath.xs
 xs/GnomeCanvasItem.xs
 xs/GnomeCanvasPathDef.xs
 xs/GnomeCanvasRichText.xs

@@ -1,3 +1,9 @@
+Overview of Changes in Gnome2::Canvas 0.92
+==========================================
+
+* Updated Glib requirement to 1.035.
+* Made use of Glib 1.035's MakeHelper features for documentation generation.
+
 Overview of Changes in Gnome2::Canvas 0.91
 ==========================================
 

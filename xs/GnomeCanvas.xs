@@ -479,8 +479,12 @@ gnome_canvas_get_dither (canvas)
 =for object Gnome2::Canvas::version
 =cut
 
+=for see_also Glib::version
+
 =for apidoc
-=for signature (major_version, minor_version, micro_version) = Gnome2::Canvas->GET_VERSION_INFO
+=for signature (MAJOR, MINOR, MICRO) = Gnome2::Canvas->GET_VERSION_INFO
+Fetch as a list the version of libgnomecanvas for which Gnome2::Canvas was
+built.
 =cut
 void
 GET_VERSION_INFO (class)

@@ -1,3 +1,12 @@
+2003/10/29 02:00 muppetman
+
+	* Canvas.pm: bump version for next devel series.
+
+	* Makefile.PL: use the latest CVS Glib and Gtk2 features -- atleast
+	version checks, MakeHelper, doc generation, etc.
+
+	* xs/GnomeCanvas.xs: doc comments
+
 2003/09/21 20:19 rwmcfa1
 
 	* Makefile.PL: fixed bug in specfile generation

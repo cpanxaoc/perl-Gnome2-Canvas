@@ -16,6 +16,11 @@ our @ISA = qw(DynaLoader);
 
 our $VERSION = '1.00';
 
+sub import {
+	my $class = shift;
+	$class->VERSION (@_);
+}
+
 sub dl_load_flags { 0x01 }
 
 bootstrap Gnome2::Canvas $VERSION;

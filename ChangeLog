@@ -1,6 +1,11 @@
 2004/03/29 12:04 (-0500) muppetman
 
-	* Canvas.pm, README, NEWS, Makefile.PL: stable release 1.0
+	* Canvas.pm, README, NEWS: stable release 1.0
+
+	* Makefile.PL: require stable Glib and Gtk2.
+
+	* Canvas.pm: add import version checking, so we don't later wish
+	we'd added it now.
 
 2004/03/20 23:27 (-0500) muppetman
 

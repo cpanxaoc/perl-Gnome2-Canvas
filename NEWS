@@ -2,6 +2,7 @@ Overview of Changes in 1.0
 ==========================
 
 * Require stable Glib/Gtk2 1.040
+* Add import version checking.
 * Spit and polish.
 
 Overview of Changes in 0.93

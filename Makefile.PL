@@ -17,7 +17,7 @@ mkdir 'build', 0777;
 # autogeneration
 #
 Gtk2::CodeGen->parse_maps ('gnomecanvasperl');
-#Gtk2::CodeGen->write_boot;
+Gtk2::CodeGen->write_boot (ignore => '^Gnome2::Canvas$');
 
 # now we're ready to start creating the makefile.
 # we need to use ExtUtils::Depends to get relevant information out of

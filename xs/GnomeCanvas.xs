@@ -64,15 +64,7 @@ MODULE = Gnome2::Canvas	PACKAGE = Gnome2::Canvas	PREFIX = gnome_canvas_
 
 BOOT:
 #include "register.xsh"
-	/* we need to be careful not to use the standard boot.xsh mechanism;
-	 * because we have :'s in the package name, the current boot generator
-	 * in Gtk2::CodeGen will create an infinite loop here.  we only have
-	 * a few other modules, so let's just load them by hand. */
-	GPERL_CALL_BOOT (boot_Gnome2__Canvas__Item);
-	GPERL_CALL_BOOT (boot_Gnome2__Canvas__PathDef);
-	GPERL_CALL_BOOT (boot_Gnome2__Canvas__RichText);
-	GPERL_CALL_BOOT (boot_Gnome2__Canvas__Util);
-	GPERL_CALL_BOOT (boot_Gnome2__Canvas__Bpath);
+#include "boot.xsh"
 
 
 SV *

@@ -1,3 +1,7 @@
+2003/06/19 17:11 pcg
+
+	* t/01.t: make it actually work.
+
 2003/06/16 13:46 muppetman
 
 	* xs/GnomeCanvasUtil.xs, canvas_demo/canvas-primitives.pl,

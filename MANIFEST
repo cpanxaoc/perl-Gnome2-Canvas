@@ -25,3 +25,4 @@ xs/GnomeCanvasPathDef.xs
 xs/GnomeCanvasRichText.xs
 xs/GnomeCanvasUtil.xs
 xs/GnomeCanvas.xs
+META.yml                                Module meta-data in YAML

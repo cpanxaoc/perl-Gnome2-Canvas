@@ -1,5 +1,4 @@
 use strict;
-#use Gtk2;
 use Gnome2::Canvas;
 
 require "canvas-arrowhead.pl";

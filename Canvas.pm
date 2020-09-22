@@ -32,7 +32,7 @@ __END__
 
 =head1 NAME
 
-Gnome2::Canvas - A structured graphics canvas
+Gnome2::Canvas - (DEPRECATED) A structured graphics canvas
 
 =head1 SYNOPSIS
 

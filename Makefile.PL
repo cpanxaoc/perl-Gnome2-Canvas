@@ -82,7 +82,7 @@ $gnomecanvas->save_config ('build/IFiles.pm');
 WriteMakefile(
     NAME            => 'Gnome2::Canvas',
     VERSION_FROM    => 'Canvas.pm', # finds $VERSION
-    ABSTRACT        => 'Perl bindings for the 2.x series of the Gnome Canvas widget',
+    ABSTRACT        => '(DEPRECATED) Perl bindings for the 2.x series of the Gnome Canvas widget',
     XSPROTOARG      => '-noprototypes',
     MAN3PODS        => \%pod_files,
     $gnomecanvas->get_makefile_vars,

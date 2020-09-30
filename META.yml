@@ -9,3 +9,4 @@ configure_requires:
 
 distribution_type: module
 generated_by: ExtUtils::MakeMaker version 6.10_03
+x_deprecated: 1

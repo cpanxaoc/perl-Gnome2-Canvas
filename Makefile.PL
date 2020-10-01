@@ -31,6 +31,7 @@ unless (eval "use ExtUtils::Depends '$build_reqs{'perl-ExtUtils-Depends'}';"
    warn "$@\n";
    WriteMakefile(
          PREREQ_FATAL => 1,
+         NO_META      => 1,
          PREREQ_PM    => {
             Glib::                => $build_reqs{'perl-Glib'},
             Gtk2::                => $build_reqs{'perl-Gtk2'},
@@ -85,6 +86,7 @@ WriteMakefile(
     ABSTRACT        => 'Perl bindings for the 2.x series of the Gnome Canvas widget',
     XSPROTOARG      => '-noprototypes',
     MAN3PODS        => \%pod_files,
+    NO_META         => 1,
     $gnomecanvas->get_makefile_vars,
 );
 

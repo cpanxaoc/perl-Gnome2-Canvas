@@ -1,7 +1,7 @@
 #XXXXXXX This is a prototype!!!  It will change in the future!!! XXXXX#
 name:         Gnome2-Canvas
 abstract:     (DEPRECATED) A structured graphics canvas
-version:      1.005
+version:      1.006
 version_from: Canvas.pm
 installdirs:  site
 requires:
